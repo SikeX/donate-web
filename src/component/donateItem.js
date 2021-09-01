@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom"
+
 const DonateItem = ({tag, title}) => {
 
     const defaultStyle = 'flex md:flex-col flex-shrink-0 md:flex-shrink md:h-96 border shadow-md hover:shadow-2xl rounded-md transition transform hover:-translate-y-1 cursor-pointer my-1 w-full'
@@ -10,7 +12,9 @@ const DonateItem = ({tag, title}) => {
             <div className='flex flex-col flex-grow divide-y-2 divide-dotted'>
                 <div className='flex flex-col py-1 px-4'>
                     <div className='text-gray-400 text-sm'>筹集中</div>
+                    <Link to={{ pathname:'/donate/haha' }}>
                     <div className='pb-4 hover:underline' >{title}</div>
+                    </Link>
                 </div>
                 
                 <div className='flex flex-col px-3 py-2 space-y-1'>

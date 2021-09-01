@@ -10,9 +10,11 @@ const Home = () => {
     return (
         <div className="flex w-screen flex-col">
             <Head />
-            <Nav />
-            <div className='w-full md:px-8 lg:px-16'>
-                <MySlider />
+            <div className='flex flex-col-reverse md:flex-col'>
+                <Nav />
+                <div className='w-full md:px-8 lg:px-16'>
+                    <MySlider />
+                </div>
             </div>
             <div className='my-4 px-1 md:px-8 lg:px-16 w-full'>
                 <Thanks />

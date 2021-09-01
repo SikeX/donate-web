@@ -1,0 +1,18 @@
+POST http://one.hrbeu.edu.cn/taskcenter/workflow/apps
+Content-Type: application/x-www-form-urlencoded
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36
+
+username=S320067098
+&password=1113573X
+&_eventId=submit
+
+###
+POST https://cas.hrbeu.edu.cn/cas/login
+Content-Type: application/x-www-form-urlencoded
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36
+
+username=S320067098
+&password=1113573X
+&_eventId=submit
+
+
