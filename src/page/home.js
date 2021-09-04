@@ -14,10 +14,10 @@ const Home = () => {
                 <Nav />
                 <MySlider />
             </div>
-            <div className='my-4 px-1 md:px-8 lg:px-16 w-full'>
+            <div className='my-4 px-1 md:px-8 lg:px-12 w-full'>
                 <Thanks />
             </div>
-            <div className='w-full flex flex-col px-1 md:px-8 lg:px-16 space-y-3 py-1'>
+            <div className='w-full flex flex-col px-1 md:px-8 lg:px-12 space-y-3 py-1'>
                 <DonateClass name='菁菁校园' />
                 <DonateClass name='人才培养' />
             </div>
