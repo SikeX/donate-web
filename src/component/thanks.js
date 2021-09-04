@@ -3,7 +3,7 @@ const Thanks = () => {
     return (
         <div className='w-full overflow-hidden'>
             <div>捐赠寄语</div>
-            <div className='w-full bg-red-700 h-1'></div>
+            <div className='w-full bg-blue-700 h-1'></div>
             <div id='thank' className='inline-block whitespace-nowrap cursor-pointer'>
                 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
             </div>

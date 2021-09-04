@@ -7,8 +7,8 @@ const FootItem = ({title}) => {
 
 const Footer = () => {
     return (
-        <div className='flex flex-col w-full bg-red-800 divide-y-2 divide-red-900 text-white text-sm'>
-            <div className='flex divide-x-2 divide-red-900 justify-center py-6'>
+        <div className='flex flex-col w-full bg-blue-800 divide-y-2 divide-blue-900 text-white text-sm'>
+            <div className='flex divide-x-2 divide-blue-900 justify-center py-6'>
                 <FootItem title='关于我们' />
                 <FootItem title='关于我们' />
                 <FootItem title='关于我们' />

@@ -1,3 +1,5 @@
+import { FaList } from "react-icons/fa"
+
 const HeadItem = ({title}) => {
     return (
         <span className='hidden md:inline-block hover:underline cursor-pointer my-auto'>{title}</span>
@@ -6,7 +8,7 @@ const HeadItem = ({title}) => {
 
 const Head = () => {
     return (
-        <div className='sticky top-0 z-40 md:flex space-x-2 bg-green-700 text-white text-sm px-2 lg:px-16 py-1 h-10 md:h-8 w-full my-auto'>
+        <div className='sticky md:hidden top-0 z-40 space-x-2 bg-blue-700 text-white text-sm px-2 lg:px-16 py-1 h-10 md:h-8 w-full my-auto' style={{zIndex:1001}}>
             <HeadItem title='校友注册' />
             <HeadItem title='登录' />
             <div className='flex-grow'></div>
