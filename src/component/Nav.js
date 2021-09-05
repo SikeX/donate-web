@@ -1,26 +1,47 @@
-import { FaSearch } from 'react-icons/fa'
+import { FaSearch, FaCaretDown } from 'react-icons/fa'
 
-const NavItem = ({title}) => {
+const MenuItem = ({name}) => {
     return (
-        <span className='hidden md:inline-block px-2 text-gray-500 hover:text-blue-500 cursor-pointer my-auto'>{title}</span>
+        <div className='px-3 py-1 pr-8'>{name}</div>
+    )
+}
+
+const NavItem = ({title, menu}) => {
+    return (
+        <div className='menu hidden md:inline-block relative my-auto px-1'>
+            <div className='flex'>
+                <span className=' px-2 text-gray-500 hover:text-blue-500 cursor-pointer '>{title}
+                </span>
+                {menu && <FaCaretDown className='my-auto' />}
+            </div>
+
+            {menu &&
+            <div className='menuItem absolute block left-1 top-8 bg-white border shadow-md rounded-md min-w-full py-1 opacity-0' style={{zIndex:10002}}>
+                <MenuItem name='haha' />
+                <MenuItem name='haha' />
+                <MenuItem name='hahaaaaaaa' />
+            </div>}
+        </div>
     )
 }
 
 const Nav = () => {
     return (
-        <div className='flex shadow-sm w-full px-2'>
-            <div className='hidden md:block text-blue-500 text-2xl font-bold my-auto px-2 py-3'>校友众筹平台</div>
-            <NavItem title='首页' />
-            <NavItem title='正在众筹' />
-            <NavItem title='经典回顾' />
-            <NavItem title='常见问题' />
+        <div className='flex shadow-sm w-full px-2 py-5'>
+            <div className='hidden md:block text-blue-500 text-2xl font-bold my-auto px-2'>校友众筹平台</div>
+            <NavItem title='首页' menu={false} />
+            <NavItem title='正在众筹' menu={true} />
+            <NavItem title='经典回顾' menu={true} />
+            <NavItem title='常见问题' menu={true} />
             <div className='hidden md:inline-block md:flex-grow'></div>
-            <form className='flex-grow md:w-40 flex py-2'>
-                <span className='absolute text-gray-500 text-xl py-2 pl-2'>
+            <form className='flex-grow md:w-40 flex'>
+                <span className='absolute text-gray-500 text-xl pl-2 py-2'>
                     <FaSearch />
                 </span>
-                <input className='w-full border-2 px-3 py-2 pl-7 text-sm bg-gray-100 focus:bg-white focus:outline-none focus:ring-1 focus-blue rounded-md transition duration-700 ease-in-out' placeholder='请输入关键词' />
+                <input className='w-full border-2 px-3 py-2 pl-7 text-sm bg-gray-100 focus:bg-white focus:outline-none focus:ring-1 focus-blue rounded-xl transition duration-700 ease-in-out' placeholder='请输入关键词' />
             </form>
+            <NavItem title='校友注册' menu={false} />
+            <NavItem title='登录' menu={false} />
         </div>
     )
 }

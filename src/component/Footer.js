@@ -8,13 +8,13 @@ const FootItem = ({title}) => {
 const Footer = () => {
     return (
         <div className='flex flex-col w-full bg-blue-800 divide-y-2 divide-blue-900 text-white text-sm'>
-            <div className='flex divide-x-2 divide-blue-900 justify-center py-6'>
+            <div className='flex divide-x-2 divide-blue-900 justify-center py-8'>
                 <FootItem title='关于我们' />
                 <FootItem title='关于我们' />
                 <FootItem title='关于我们' />
                 <FootItem title='关于我们' />
             </div>
-            <div className='py-6 mx-auto'>
+            <div className='py-8 mx-auto'>
                 版权所有©哈尔滨工程大学校友会
             </div>
         </div>

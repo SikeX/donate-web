@@ -2,6 +2,31 @@ import Footer from "../component/Footer"
 import Head from "../component/Head"
 import Nav from "../component/Nav"
 
+const Info = () => {
+    return (
+        <div className='w-full bg-white flex flex-col'>
+            <div className='flex'>
+                <span>name:</span>
+                <form>
+                    <input />
+                </form>
+                <div>
+                    <input type='checkbox' id='sir' />
+                    <label for='sir'>sir</label>
+                </div>
+                <div>
+                    <input type='checkbox' id='woman' />
+                    <label for='woman'>woman</label>
+                </div>
+                <div>
+                    <input type='checkbox' id='nameHidden' />
+                    <label for='nameHidden'>匿名</label>
+                </div>
+            </div>
+        </div>
+    )
+}
+
 const Order = (props) => {
     console.log(props.match.params.name)
     return (

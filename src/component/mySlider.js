@@ -7,10 +7,15 @@ const SliderItem = ({name}) => {
     const color = 'bg-red-' + name + '00'
 
     const headStyle = 'w-full mx-auto h-80 md:h-96 text-white text-2xl ' + color
+
+    const heightStyle = {
+      height: 0,
+      paddingBottom: '40%',
+    }
     
 
     return (
-        <div className={headStyle}>
+        <div className={headStyle} style={heightStyle}>
             {name}
         </div>
     )
@@ -40,14 +45,15 @@ const MySlider = () => {
 
     return (
         <Carousel className='w-full'
-            swipeable={false}
+            swipeable={true}
             showDots={true}
             responsive={responsive}
             infinite={true}
             autoPlay={true}
             autoPlaySpeed={5000}
             customTransition='all .5 linear'
-            transitionDuration={500}    
+            transitionDuration={500}
+            removeArrowOnDeviceType={["tablet", "mobile"]}    
         >
             {headImg.map(item => <SliderItem name={item} /> )}
         </Carousel>

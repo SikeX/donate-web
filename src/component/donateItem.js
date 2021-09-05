@@ -26,19 +26,19 @@ const DonateItem = ({tag, title}) => {
     
     return (
         <div className={test}>
-            <div className='w-1/3 lg:w-full lg:h-44 bg-red-200 rounded-t-md'></div>
-            <div className='flex flex-col divide-y-2 divide-dotted w-2/3 lg:w-full flex-grow'>
-                <div className='flex flex-col py-1 px-4'>
+            <div className='w-1/3 lg:w-full h-0 pb-1/3 lg:pb-full bg-red-200 rounded-t-md'></div>
+            <div className='flex flex-col divide-y-2 divide-dotted justify-between w-2/3 lg:w-full flex-grow md:py-3'>
+                <div className='flex flex-col px-4'>
                     <div className='text-gray-400 text-sm'>筹集中</div>
                     <Link to={{ pathname:'/donate/haha' }}>
-                    <div className='py-2 hover:underline' >{title}</div>
-                    <div className='text-gray-500 text-xs md:break-all md:h-auto truncate md:overflow-clip md:whitespace-normal md:py-2'>
+                    <div className='md:py-2 hover:underline font-bold' >{title}</div>
+                    <div className='hidden md:block text-gray-500 text-xs md:break-all md:h-auto truncate md:overflow-clip md:whitespace-normal md:py-2 lg:pb-6'>
                         这里是一些介绍性的文本，这里是一些介绍性的文本，这里是一些介绍性的文本，这里是一些介绍性的文本，这里是一些介绍性的文本。
                     </div>
                     </Link>
                 </div>
                 
-                <div className='flex flex-col px-3 py-2 space-y-1 text-sm md:py-4'>
+                <div className='flex flex-col px-3 py-2 space-y-1 text-sm md:py-4 lg:py-6'>
                     <div className='flex space-x-1 justify-start items-center'>
                         <span className='font-bold'>￥{toMoney(raised)}</span>
                         <span className='text-gray-500 text-xs'>已筹</span>

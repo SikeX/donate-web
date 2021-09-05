@@ -10,6 +10,10 @@
     animation-play-state: paused
 }
 
+.menu:hover .menuItem {
+    opacity: 100;
+}
+
 @keyframes wordsloop {
     0% {
         transform: translateX(100%);

@@ -3,6 +3,10 @@ module.exports = {
     darkMode: false, // or 'media' or 'class'
     theme: {
       extend: {
+        padding: {
+          '1/3': '33.33%',
+          'full': '100%'
+        },
         transitionProperty: {
           'width': 'width'
         },
