@@ -28,11 +28,12 @@ const DonateStatus = ({title}) => {
     const [ donateDone, setDonateDone ] = useState(false)
 
     return (
-        <div className='flex flex-col'>
-            <div className='w-full px-2 py-3 md:px-16 flex'>
-                <div className='flex-shrink-0 w-80 h-80 bg-gray-300'></div>
-                <div className='flex flex-col flex-grow px-2 justify-evenly'>
-                    <div className='text-xl font-bold'>test</div>
+        <div className='w-full flex flex-col'>
+            <div className='w-full py-8 md:px-8 flex flex-col md:flex-row'>
+                <div className='w-full h-0 md:w-1/2 md:h-auto pb-1/2 md:pb-0 flex-shrink-0 bg-gray-300'></div>
+                <div className='flex flex-col flex-grow px-3 justify-start space-y-3'>
+                    <span className='text-gray-500 text-sm'>{donateDone ? 'done' : 'funding'}</span>
+                    <div className='text-2xl font-bold'>test</div>
                     <div className='text-sm text-gray-500'>值此毕业之际，我们向2021届毕业研究生发出倡议，“为母校留下一份礼物”。上海交通大学研究生会广泛征集同学意见，由毕业生设计并制作了2021届毕业生献礼—《星火》绕线画，125根根丝线从母校出发，象征着母校与毕业生之间的丝丝牵挂，而奔赴祖国山河大海的同学们则将牢记“饮水思源，爱国荣校”之校训，以钉钉子的精神扎根奋斗，在建设祖国的各条战线上发光发热。欢迎广大研究生同学以捐款形式共同参与，在离校之际把最美好的祝福送给母校。</div>
                     <div className='flex flex-col w-full space-y-2 border-t-2 border-b-2 my-2 text-sm'>
                         <div>target</div>

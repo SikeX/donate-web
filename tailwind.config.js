@@ -5,7 +5,8 @@ module.exports = {
       extend: {
         padding: {
           '1/3': '33.33%',
-          'full': '100%'
+          'full': '100%',
+          '1/2': '50%'
         },
         transitionProperty: {
           'width': 'width'

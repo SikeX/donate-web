@@ -1,12 +1,6 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
-
-const toMoney = (num) => {
-    num = num.toFixed(2) // float num to string
-    num = parseFloat(num) // string to float
-    num = num.toLocaleString(num) //to string Format date/money
-    return num
-}
+import StatusBar from "./StatusBar"
 
 const DonateItem = ({tag, title}) => {
 
@@ -14,11 +8,6 @@ const DonateItem = ({tag, title}) => {
     const [target, setTarget] = useState(10000)
     const [leftDay, setLeftDay] = useState(30)
     const [support, setSupport] = useState(100)
-    
-
-    const rate = raised / target * 100
-
-    console.log(rate.toFixed(0))
 
     const defaultStyle = 'flex lg:flex-col lg:flex-shrink-0 lg:flex-shrink shadow-lg hover:shadow-2xl rounded-lg transition transform hover:-translate-y-1 cursor-pointer w-full'
 
@@ -37,25 +26,7 @@ const DonateItem = ({tag, title}) => {
                     </div>
                     </Link>
                 </div>
-                
-                <div className='flex flex-col px-3 py-2 space-y-1 text-sm md:py-4 lg:py-6'>
-                    <div className='flex space-x-1 justify-start items-center'>
-                        <span className='font-bold'>￥{toMoney(raised)}</span>
-                        <span className='text-gray-500 text-xs'>已筹</span>
-                        <span className='flex-grow'></span>
-                        <span className='text-gray-500 my-auto'>{rate.toFixed(2)}%</span>
-                    </div>
-                    <div className='w-full h-2  bg-blue-200 rounded-lg'>
-                        <div className='w-1/2 h-2 bg-blue-800 rounded-lg'></div>
-                    </div>
-                    <div className='flex justify-start items-center'>
-                        <span>￥{toMoney(target)}</span>
-                        <span className='text-gray-500 text-xs px-1'>目标</span>
-                        <span className='flex-grow'></span>
-                        <span>{support}</span>
-                        <span className='text-gray-500 text-xs'>人支持</span>
-                    </div>
-                </div>
+                <StatusBar raised={raised} target={raised} leftDay={leftDay} support={support} />
             </div>
         </div>
     )
