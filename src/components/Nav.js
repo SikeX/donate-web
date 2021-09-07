@@ -16,7 +16,7 @@ const NavItem = ({title, menu}) => {
             </div>
 
             {menu &&
-            <div className='menuItem absolute block left-1 top-8 bg-white border shadow-md rounded-md min-w-full py-1 opacity-0' style={{zIndex:10002}}>
+            <div className='menuItem absolute hidden left-1 top-6 bg-white border shadow-md rounded-md min-w-full py-1 cursor-pointer' style={{zIndex:10002}}>
                 <MenuItem name='haha' />
                 <MenuItem name='haha' />
                 <MenuItem name='hahaaaaaaa' />

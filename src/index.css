@@ -11,7 +11,7 @@
 }
 
 .menu:hover .menuItem {
-    opacity: 100;
+    display: block;
 }
 
 @keyframes wordsloop {

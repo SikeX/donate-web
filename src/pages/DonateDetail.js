@@ -1,7 +1,7 @@
-import DonateStatus from "../component/DonateStatus"
-import Footer from "../component/Footer"
-import Head from "../component/Head"
-import Nav from "../component/Nav"
+import DonateStatus from "../components/DonateStatus"
+import Footer from "../components/Footer"
+import Head from "../components/Head"
+import Nav from "../components/Nav"
 
 const DonateDetail = (props) => {
     console.log(props.match.params.name)

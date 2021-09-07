@@ -4,10 +4,10 @@ import {
   Route,
 } from 'react-router-dom'
 
-import Home from './page/home'
-import Donate from './page/Donate'
-import DonateDetail from './page/DonateDetail'
-import Order from './page/Order'
+import Home from './pages/Home'
+import Donate from './pages/Donate'
+import DonateDetail from './pages/DonateDetail'
+import Order from './pages/Order'
 
 function App() {
   return (

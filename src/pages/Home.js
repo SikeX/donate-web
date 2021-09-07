@@ -1,10 +1,10 @@
-import Head from '../component/Head'
-import Nav from '../component/Nav'
-import MySlider from '../component/mySlider'
-import Thanks from '../component/thanks'
-import Footer from '../component/Footer'
+import Head from '../components/Head'
+import Nav from '../components/Nav'
+import MySlider from '../components/MySlider'
+import Thanks from '../components/Thanks'
+import Footer from '../components/Footer'
 
-import DonateClass from '../component/donateClass'
+import DonateClass from '../components/DonateClass'
 
 const Home = () => {
     return (

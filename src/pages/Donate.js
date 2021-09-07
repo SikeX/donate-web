@@ -1,8 +1,8 @@
-import Head from '../component/Head'
-import Nav from '../component/Nav'
-import DonateChoose from '../component/DonateChoose'
-import MultipleSlider from '../component/MultipleSlider'
-import Footer from '../component/Footer'
+import Head from '../components/Head'
+import Nav from '../components/Nav'
+import DonateChoose from '../components/DonateChoose'
+import MultipleSlider from '../components/MultipleSlider'
+import Footer from '../components/Footer'
 
 const Donate = () => {
     return (

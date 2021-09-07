@@ -1,6 +1,6 @@
-import Footer from "../component/Footer"
-import Head from "../component/Head"
-import Nav from "../component/Nav"
+import Footer from "../components/Footer"
+import Head from "../components/Head"
+import Nav from "../components/Nav"
 
 const Info = () => {
     return (

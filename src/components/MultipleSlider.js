@@ -1,5 +1,5 @@
 import Carousel from 'react-grid-carousel'
-import DonateItem from '../component/donateItem'
+import DonateItem from '../components/DonateItem'
 
 const MultipleSlider = () => {
     const settings = {

@@ -1,4 +1,4 @@
-import DonateItem from './donateItem'
+import DonateItem from './DonateItem'
 import { Link } from 'react-router-dom'
 
 const DonateClass = ({name}) => {
