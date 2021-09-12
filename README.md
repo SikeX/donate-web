@@ -1,70 +1,140 @@
-# Getting Started with Create React App
+## Donate-Web
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+> 校友众筹平台前端开发仓库
 
-## Available Scripts
+### 项目部署
 
-In the project directory, you can run:
+```js
+# 安装依赖
+npm install
+# 项目启动
+npm start
+```
 
-### `npm start`
+### 1. 规范协作
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+本仓库有2个分支，master和dev。主要在dev分支上进行开发和测试，功能完善之后再合并到master。
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+```
+|- master
+|- dev
+```
 
-### `npm test`
+#### 1.1 准备工作
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+在github上fork本仓库到你自己的github，将你fork之后的远程仓库克隆到本地，并在你的本地仓库上添加上游仓库，即源仓库。fork一般是fork了仓库的master分支，所以可能还需要自己去切出dev分支然后拉取源仓库dev分支上的内容。
 
-### `npm run build`
+``` 
+git clone https://github.com/{你的github}/Donate-web
+# 上游的源仓库地址只需添加一次
+git remote add upstream https://github.com/SYSUMonkeyEye/-FE.git
+# 切出dev分支并拉取源仓库dev分支上的内容
+git checkout -b dev
+git pull upstream dev
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+#### 1.2 协作方式
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+要开发某个模块的时候，在你的本地仓库创建一个分支，例如mydev。
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
+git checkout -b mydev
+```
 
-### `npm run eject`
+切换之后你的本地仓库上就有3个分支了，如下所示。checkout之后会自动切换到mydev分支。
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```
+├─master
+├─dev
+└─mydev
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+在mydev分支上进行开发和测试，完成相应的功能或者模块，完成之后再切回到dev分支将mydev的内容合并到dev。
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```
+# mydev分支上提交你的更新
+git add *
+git commit -m "add something"
+# 切换到dev分支
+git checkout dev
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+由于在你开发过程中，我也可能在开发并且更新了仓库，为了避免冲突，在合并分支之前你还需要更新你本地仓库的dev分支。先在本地仓库上添加上游仓库upstream，上游仓库即我的仓库，然后使用pull命令从上游仓库拉取更新。
 
-## Learn More
+```
+# 拉取上游的源仓库dev分支上的更新
+git pull upstream dev
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+更新完dev之后，将mydev分支合并到dev分支并提交到你自己的远程仓库。完成之后，mydev分支就可以删除了，你也可以继续留着。
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```
+# 将mydev分支合并到dev，可能会有冲突需要自行解决
+git merge mydev
+# 推送到你自己的远程仓库，注意这里是push到origin dev，不是upstream dev
+git push origin dev
+# 删除mydev分支
+git branch -d mydev
+```
 
-### Code Splitting
+推送到自己的远程仓库后，就可以到github上面给我发Pull Request了，然后等待我合并你的代码。
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## 2. 项目结构
 
-### Analyzing the Bundle Size
+```
+├── craco.config.js
+├── package-lock.json
+├── package.json
+├── public: webpack不参与编译的文件
+│   ├── favicon.ico
+│   ├── index.html
+│   ├── manifest.json
+│   └── robots.txt
+├── src
+│   ├── App.js
+│   ├── App.test.js
+│   ├── common
+│   │   └── img
+│   │       └── ha.js
+│   ├── components
+│   │   ├── DonateChoose.js
+│   │   ├── DonateClass.js
+│   │   ├── DonateItem.js
+│   │   ├── DonateStatus.js
+│   │   ├── Footer.js
+│   │   ├── Head.js
+│   │   ├── MultipleSlider.js
+│   │   ├── MySlider.js
+│   │   ├── Nav.js
+│   │   ├── SlickItem.js
+│   │   ├── StatusBar.js
+│   │   ├── Thanks.js
+│   │   └── test.rest
+│   ├── index.css
+│   ├── index.js
+│   ├── logo.svg
+│   ├── pages
+│   │   ├── Donate.js
+│   │   ├── DonateDetail.js
+│   │   ├── Home.js
+│   │   └── Order.js
+│   ├── reportWebVitals.js
+│   ├── setupTests.js
+│   └── utils
+│       └── dataProcess.js
+└── tailwind.config.js
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+项目模块结构和界面跳转关系
 
-### Making a Progressive Web App
+![donate-relation](./images-for-readme/donate-relation.png)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## 3、开发规范
 
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+1. React组件文件名使用首字母大写驼峰形式命名，例如"HelloWorld.js"；方法采用小写字母驼峰命名法，例如"addItem()"，以符合HTML标签的规范
+2. 文件夹采用小写短线形式命名，例如"images-for-readme"
+3. 代码缩进为4个空格；语句末尾全部不写分号；其他代码风格细节参考eslint的提示进行修改
+4. 使用tailwind+es6进行开发
+5. 各个界面在路由中已经引入并写好跳转关系，如果界面中需要用到自定义组件请将组件放置在该界面所在的文件夹里面
+6. 伪数据程程器和伪数据json文件都放置在data文件夹下面。生成器和json文件的命名格式为"xxx-genertor.js"和"xxx.json"，其实"xxx"为上述各个数据模型的英文名称
+7. 样式大小单位使用rem，不使用px。
