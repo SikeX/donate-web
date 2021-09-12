@@ -25,9 +25,9 @@ npm start
 在github上fork本仓库到你自己的github，将你fork之后的远程仓库克隆到本地，并在你的本地仓库上添加上游仓库，即源仓库。fork一般是fork了仓库的master分支，所以可能还需要自己去切出dev分支然后拉取源仓库dev分支上的内容。
 
 ``` 
-git clone https://github.com/{你的github}/Donate-web
+git clone https://github.com/{你的github}/donate-web
 # 上游的源仓库地址只需添加一次
-git remote add upstream https://github.com/SYSUMonkeyEye/-FE.git
+git remote add upstream https://github.com/SikeX/donate-web.git
 # 切出dev分支并拉取源仓库dev分支上的内容
 git checkout -b dev
 git pull upstream dev
@@ -90,14 +90,12 @@ git branch -d mydev
 │   ├── index.html
 │   ├── manifest.json
 │   └── robots.txt
-├── src
+├── src: 项目源码
 │   ├── App.js
 │   ├── App.test.js
 │   ├── common
-│   │   └── img
-│   │       └── ha.js
-│   ├── components
-│   │   ├── DonateChoose.js
+│   ├── components: 组件
+│   │   ├── DonateChoose.js 
 │   │   ├── DonateClass.js
 │   │   ├── DonateItem.js
 │   │   ├── DonateStatus.js
@@ -113,7 +111,7 @@ git branch -d mydev
 │   ├── index.css
 │   ├── index.js
 │   ├── logo.svg
-│   ├── pages
+│   ├── pages: 页面
 │   │   ├── Donate.js
 │   │   ├── DonateDetail.js
 │   │   ├── Home.js
