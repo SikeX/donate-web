@@ -13,8 +13,6 @@ const SliderItem = ({ url }) => {
 
   const imgUrl = FILE_BASE_URL + url.split(',')[0]
 
-  console.log(FILE_BASE_URL + url.split(',')[0])
-
   const heightStyle = {
     height: 0,
     paddingBottom: '40%',

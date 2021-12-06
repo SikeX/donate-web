@@ -3,8 +3,8 @@ import { BASE_URL } from "./api";
 
 const baseUrl = BASE_URL
 
-const getAllItem = async () => {
-    const result = await axios.get(baseUrl+'donationItem/donationItem/list')
+const getAllClass = async () => {
+    const result = await axios.get(baseUrl+'donationClass/donationClass/list')
     return result.data
 }
 
@@ -34,5 +34,5 @@ const deleteTodo = async (taskName,todoName) => {
 }
 
 export default {
-    getAllItem: getAllItem
+    getAllClass: getAllClass
 }
