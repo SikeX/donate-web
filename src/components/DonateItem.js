@@ -1,11 +1,16 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
+import { FILE_BASE_URL } from "../services/api"
 import StatusBar from "./StatusBar"
 
-const DonateItem = ({tag, title}) => {
+const DonateItem = ({tag, title, targetMoney, raisedMoney, picture}) => {
 
-    const [raised, setRaised] = useState(5001)
-    const [target, setTarget] = useState(10000)
+    const imgUrl = FILE_BASE_URL + picture
+
+    console.log(title)
+
+    const [raised, setRaised] = useState(parseInt(raisedMoney))
+    const [target, setTarget] = useState(parseInt(targetMoney))
     const [leftDay, setLeftDay] = useState(30)
     const [support, setSupport] = useState(100)
 
@@ -15,7 +20,9 @@ const DonateItem = ({tag, title}) => {
     
     return (
         <div className={test}>
-            <div className='w-1/3 lg:w-full h-0 pb-1/3 lg:pb-full bg-red-200 rounded-t-md'></div>
+            <div style={{backgroundImage: 'url('+imgUrl+')'}} className='w-1/3 lg:w-full h-0 pb-1/3 lg:pb-full bg-red-200 rounded-t-md bg-cover'>
+                {/* <img src={imgUrl} style={{width:'auto',height:'100%'}} /> */}
+            </div>
             <div className='flex flex-col divide-y-2 divide-dotted justify-between w-2/3 lg:w-full flex-grow md:py-3'>
                 <div className='flex flex-col px-4'>
                     <div className='text-gray-400 text-sm'>筹集中</div>
@@ -26,7 +33,7 @@ const DonateItem = ({tag, title}) => {
                     </div>
                     </Link>
                 </div>
-                <StatusBar raised={raised} target={raised} leftDay={leftDay} support={support} />
+                <StatusBar raised={raised} target={target} leftDay={leftDay} support={support} />
             </div>
         </div>
     )

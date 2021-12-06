@@ -13,7 +13,7 @@ const StatusBar = ({raised, target, leftDay,support}) => {
                 <span className='text-gray-500 my-auto'>{rate.toFixed(2)}%</span>
             </div>
             <div className='w-full h-2  bg-blue-200 rounded-lg'>
-                <div className='w-1/2 h-2 bg-blue-800 rounded-lg'></div>
+                <div style={{width: rate}} className='h-2 bg-blue-800 rounded-lg'></div>
             </div>
             <div className='flex justify-start items-center'>
                 <span>￥{toMoney(target)}</span>
