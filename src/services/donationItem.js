@@ -8,9 +8,15 @@ const getAllItem = async () => {
     return result.data
 }
 
-const getItemById = async (id) => {
+const getItemsByClassId = async (id) => {
     const result = await axios.get(baseUrl + 'donationItem/donationItem/queryByClassId',
         { params: { classId: id } })
+    return result.data
+}
+
+const getItemById = async (id) => {
+    const result = await axios.get(baseUrl + 'donationItem/donationItem/queryById',
+        { params: { id: id } })
     return result.data
 }
 
@@ -41,5 +47,6 @@ const deleteTodo = async (taskName, todoName) => {
 
 export default {
     getAllItem: getAllItem,
+    getItemsByClassId: getItemsByClassId,
     getItemById: getItemById
 }

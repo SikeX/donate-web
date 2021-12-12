@@ -4,12 +4,15 @@ import Head from "../components/Head"
 import Nav from "../components/Nav"
 
 const DonateDetail = (props) => {
-    console.log(props.match.params.name)
+    
+
+    const { id } = props.match.params 
+
     return (
         <div className='w-full flex flex-col'>
             <Head />
             <Nav />
-            <DonateStatus />
+            <DonateStatus id={id} />
             <Footer />
         </div>
     )

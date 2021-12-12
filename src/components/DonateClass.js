@@ -9,7 +9,7 @@ const DonateClass = ({id, name}) => {
     const [itemList, setItemList] = useState([])
 
     useEffect(() => {
-        donationItem.getItemById(id).then((res) => {
+        donationItem.getItemsByClassId(id).then((res) => {
             if(res.success) {
                 console.log(res.result.slice(0,4))
                 setItemList(res.result.slice(0,4))
@@ -28,7 +28,8 @@ const DonateClass = ({id, name}) => {
             <div className='w-full flex flex-col lg:flex-row justify-start lg:justify-center space-y-2 lg:space-x-6 xl:space-x-8 py-1'>
                 {itemList.map((item, index) => <DonateItem 
                     key={item.id} 
-                    tag={true} 
+                    tag={true}
+                    id={item.id} 
                     title={item.name}
                     picture={item.picture}
                     targetMoney={item.targetMoney}
