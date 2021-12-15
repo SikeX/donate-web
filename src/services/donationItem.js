@@ -3,8 +3,8 @@ import { BASE_URL } from "./api";
 
 const baseUrl = BASE_URL
 
-const getAllItem = async () => {
-    const result = await axios.get(baseUrl + 'donationItem/donationItem/list')
+const getAllItem = async (params) => {
+    const result = await axios.get(baseUrl + 'donationItem/donationItem/list',{params:params})
     return result.data
 }
 
