@@ -4,12 +4,17 @@
   "private": true,
   "dependencies": {
     "@craco/craco": "^6.2.0",
+    "@emotion/react": "^11.7.0",
+    "@emotion/styled": "^11.6.0",
+    "@geist-ui/react": "^2.2.0",
+    "@mui/material": "^5.2.3",
     "@szhsin/react-menu": "^2.0.0",
     "@tailwindcss/postcss7-compat": "^2.2.7",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "autoprefixer": "^9.8.6",
+    "axios": "^0.24.0",
     "postcss": "^7.0.36",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -18,14 +23,12 @@
     "react-multi-carousel": "^2.6.5",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
-    "run": "^1.4.0",
-    "serve": "^13.0.2",
     "slick-carousel": "^1.8.1",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.7",
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start": "set PORT=3006 && craco start",
+    "start": "PORT=3006 REACT_APP_ENV=dev craco start FAST_REFRESH=true",
     "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject"

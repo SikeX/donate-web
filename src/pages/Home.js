@@ -3,10 +3,23 @@ import Nav from '../components/Nav'
 import MySlider from '../components/MySlider'
 import Thanks from '../components/Thanks'
 import Footer from '../components/Footer'
-
 import DonateClass from '../components/DonateClass'
+import donationClass from '../services/donationClass'
+import { useEffect, useState } from 'react'
 
 const Home = () => {
+
+    const [donationClassList, setDonationClassList] = useState([])
+
+    useEffect(() => {
+        donationClass.getAllClass().then(res => {
+            console.log(res)
+            if(res.success) {
+                setDonationClassList(res.result.records)
+            }
+        })
+    },[])
+
     return (
         <div className="flex w-screen flex-col">
             <Head />
@@ -18,8 +31,7 @@ const Home = () => {
                 <Thanks />
             </div>
             <div className='w-full flex flex-col px-1 md:px-12 lg:px-16 space-y-3 py-1'>
-                <DonateClass name='菁菁校园' />
-                <DonateClass name='人才培养' />
+                {donationClassList.map((item) => <DonateClass key={item.id} id={item.id} name={item.name}/>)}
             </div>
             <div>
                 <Footer />
