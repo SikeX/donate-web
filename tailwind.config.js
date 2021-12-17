@@ -6,7 +6,8 @@ module.exports = {
         padding: {
           '1/3': '33.33%',
           'full': '100%',
-          '1/2': '50%'
+          '1/2': '50%',
+          '3/4': '75%'
         },
         transitionProperty: {
           'width': 'width'

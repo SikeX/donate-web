@@ -1,13 +1,25 @@
+import { useState, useEffect } from 'react'
 import { FaSearch, FaCaretDown } from 'react-icons/fa'
 import { Link, useHistory } from 'react-router-dom'
+import donationClass from '../services/donationClass'
+import donationItem from '../services/donationItem'
 
 const MenuItem = ({ name }) => {
     return (
-        <div className='px-3 py-1 pr-8'>{name}</div>
+        <div className='w-40 px-3 py-1 pr-8 hover:bg-blue-300'>{name}</div>
     )
 }
 
 const NavItem = ({ title, menu }) => {
+
+    const [allClass, setAllClass] = useState([])
+
+    useEffect(() => {
+        donationClass.getAllClass().then((res) => {
+            setAllClass(res.result.records)
+        })
+    }, [])
+
     return (
         <div className='menu hidden md:inline-block relative my-auto px-1'>
             <div className='flex'>
@@ -18,9 +30,7 @@ const NavItem = ({ title, menu }) => {
 
             {menu &&
                 <div className='menuItem absolute hidden left-1 top-6 bg-white border shadow-md rounded-md min-w-full py-1 cursor-pointer' style={{ zIndex: 10002 }}>
-                    <MenuItem name='haha' />
-                    <MenuItem name='haha' />
-                    <MenuItem name='hahaaaaaaa' />
+                   {title=='正在众筹' && allClass.map((item) => <MenuItem name={item.name} /> )}
                 </div>}
         </div>
     )
