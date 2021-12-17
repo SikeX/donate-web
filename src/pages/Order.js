@@ -10,6 +10,8 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
+import { loadCaptchaEnginge, LoadCanvasTemplate, LoadCanvasTemplateNoReload, validateCaptcha } from 'react-simple-captcha';
+import { useEffect } from "react";
 
 const Info = () => {
     return (
@@ -46,6 +48,12 @@ const top100Films = [
     { label: 'Pulp Fiction', year: 1994 },]
 
 const Order = (props) => {
+
+    useEffect(() => {
+        loadCaptchaEnginge(6, '#1e40af', 'white');
+    }, [])
+
+
     console.log(props.match.params.name)
     return (
         <div className='w-full h-screen flex flex-col'>
@@ -114,6 +122,19 @@ const Order = (props) => {
                                 <FormControlLabel value="male" control={<Radio />} label="否" />
                             </RadioGroup>
                         </FormControl>
+                        <div className="flex w-full">
+                            <div className='w-full'></div>
+                            <LoadCanvasTemplateNoReload backgroundColor='blue' />
+                        </div>
+                        <div className="flex w-full">
+                            <div className='w-full'></div>
+                            <TextField
+                                label="验证码"
+                                placeholder="请输入验证码"
+                                id="outlined-size-small"
+                                size="small"
+                            />
+                        </div>
                         <div className="flex w-full">
                             <div className='w-full'></div>
                             <Button className='w-36' variant="contained" disableElevation>
