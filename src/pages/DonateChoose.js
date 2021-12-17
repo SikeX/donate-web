@@ -15,19 +15,21 @@ import donationClass from '../services/donationClass'
 const DonateChoose = () => {
 
     const [allItem, setAllItem] = useState([])
+    
+    const [total, setTotal] = useState(0)
 
     const [params, setParams] = useState({})
 
     const [allClass, setAllClass] = useState()
 
-    console.log(allClass)
+    // console.log(allClass)
 
     useEffect(() => {
-        const loadData = () => {
+        const loadData = async () => {
             donationItem.getAllItem(params).then((res) => {
                 if (res.success) {
+                    setTotal(res.result.total)
                     setAllItem(res.result.records)
-                    console.log(res.result.records)
                 }
             })
         }
@@ -39,7 +41,7 @@ const DonateChoose = () => {
             if(res.success) {
                 const classMap = {}
                 res.result.records.map((item) => {
-                    console.log(item)
+                    // console.log(item)
                     classMap[[item.name]] = item.id
                 })
                 setAllClass(classMap)
@@ -60,22 +62,32 @@ const DonateChoose = () => {
         'donationClass': allClass,
     }
 
+    const changePage = (page) => {
+        getParams({page: page})
+    }
+
     return (
-        <MyContext.Provider value={{setParams, getParams, paramMap}} >
+        <MyContext.Provider value={{setParams, getParams, paramMap, allClass}} >
             <div className='w-full'>
                 <Head />
                 <Nav />
                 <DonateChooseTool getParams={getParams} />
-                {allItem ? <div className='w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 px-1 md:px-16 my-3'>
+                {allItem ? (<div className='w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 px-1 md:px-16 my-3'>
                     {allItem.map((item) => <DonateItem
-                        tag={false}
+                        key={item.id} 
+                        id={item.id} 
                         title={item.name}
-                        picture={item.picture} />)}
-                    {/* <MultipleSlider /> */}
-                </div> : <Skeleton variant="rectangular" width={210} height={118} />}
+                        picture={item.picture}
+                        targetMoney={item.targetMoney}
+                        raisedMoney={item.raisedMoney}
+                        itemDesc={item.itemDesc}
+                        leastMoney={item.leastMoney}
+                        tag={false}
+                        />)}
+                </div>) : (<Skeleton animation="wave" variant="rectangular" width={800} height={118} />)}
                 <div className='flex mx-auto py-8 px-4'>
                     <div></div>
-                    <Pagination sx={{ margin: "auto" }} count={10} color="primary" />
+                    <Pagination onChange={(event,page) => getParams({pageNo: page})} sx={{ margin: "auto" }} count={Math.ceil(total/12)} color="primary" />
                 </div>
                 <Footer />
             </div>
