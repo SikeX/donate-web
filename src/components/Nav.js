@@ -45,6 +45,11 @@ const Nav = () => {
             </Link>
             <NavItem title='经典回顾' menu={true} />
             <NavItem title='常见问题' menu={true} />
+
+            <Link className='my-auto' to='/protocol'>
+            <NavItem title='协议项目' menu={true}/>
+            </Link>
+
             <div className='hidden md:inline-block md:flex-grow'></div>
             <form className='flex-grow md:w-40 flex'>
                 <span className='absolute text-gray-500 text-xl pl-2 py-2'>
