@@ -35,6 +35,7 @@ const ProtocolClass = ({id, name}) => {
                     picture={item.picture}
                     targetMoney={item.targetMoney}
                     raisedMoney={item.raisedMoney}
+                    itemDesc={item.itemDesc}
 
                 />)}
             </div>

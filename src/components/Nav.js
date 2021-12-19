@@ -3,6 +3,7 @@ import { FaSearch, FaCaretDown } from 'react-icons/fa'
 import { Link, useHistory } from 'react-router-dom'
 import donationClass from '../services/donationClass'
 import donationItem from '../services/donationItem'
+import protocolClass from "../services/protocolClass";
 
 const MenuItem = ({ name }) => {
     return (
@@ -19,6 +20,11 @@ const NavItem = ({ title, menu }) => {
             setAllClass(res.result.records)
         })
     }, [])
+    useEffect(() => {
+        protocolClass.getAllClass().then((res) => {
+            setAllClass(res.result.records)
+        })
+    }, [])
 
     return (
         <div className='menu hidden md:inline-block relative my-auto px-1'>
@@ -31,6 +37,7 @@ const NavItem = ({ title, menu }) => {
             {menu &&
                 <div className='menuItem absolute hidden left-1 top-6 bg-white border shadow-md rounded-md min-w-full py-1 cursor-pointer' style={{ zIndex: 10002 }}>
                    {title=='正在众筹' && allClass.map((item) => <MenuItem name={item.name} /> )}
+                   {title=='协议项目' && allClass.map((item) => <MenuItem name={item.name} /> )}
                 </div>}
         </div>
     )

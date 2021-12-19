@@ -3,7 +3,8 @@ import { Link, useHistory } from "react-router-dom"
 import { FILE_BASE_URL } from "../services/api"
 import StatusBar from "./StatusBar"
 
-const ProtocolItem = ({id, tag=true, title, targetMoney, raisedMoney, picture}) => {
+const ProtocolItem = (props) => {
+    const {id, itemDesc,tag=true, title, targetMoney, raisedMoney, picture}=props
 
     let history = useHistory()
 
@@ -32,11 +33,11 @@ const ProtocolItem = ({id, tag=true, title, targetMoney, raisedMoney, picture}) 
             </div>
             <div className='flex flex-col divide-y-2 divide-dotted justify-between w-2/3 lg:w-full flex-grow md:py-3'>
                 <div className='flex flex-col px-4'>
-                    <div className='text-gray-400 text-sm'>筹集中</div>
-                    {/* <Link to={{ pathname:`/donate/detail/${title}` }}> */}
+                    <div className='text-gray-400 text-sm'>协议项目</div>
+
                     <div onClick={showDetail} className='md:py-2 hover:underline font-bold' >{title}</div>
                     <div className='hidden md:block text-gray-500 text-xs md:break-all md:h-auto truncate md:overflow-clip md:whitespace-normal md:py-2 lg:pb-6'>
-                        这里是一些介绍性的文本，这里是一些介绍性的文本，这里是一些介绍性的文本，这里是一些介绍性的文本，这里是一些介绍性的文本。
+                        {itemDesc}
                     </div>
                     {/* </Link> */}
                 </div>

@@ -16,18 +16,21 @@ const ProtocolChoose = () => {
 
     const [allItem, setAllItem] = useState([])
 
+    const [total, setTotal] = useState(0)
+
     const [params, setParams] = useState({})
 
     const [allClass, setAllClass] = useState()
 
-    console.log(allClass)
+
 
     useEffect(() => {
-        const loadData = () => {
+        const loadData = async() => {
             protocolItem.getAllItem(params).then((res) => {
                 if (res.success) {
+                    setTotal(res.result.total)
                     setAllItem(res.result.records)
-                    console.log(res.result.records)
+
                 }
             })
         }
@@ -59,23 +62,30 @@ const ProtocolChoose = () => {
         },
         'protocolClass': allClass,
     }
+    const changePage = (page) => {
+        getParams({page: page})
+    }
 
     return (
-        <MyContext.Provider value={{setParams, getParams, paramMap}} >
+        <MyContext.Provider value={{setParams, getParams, paramMap,allClass}} >
             <div className='w-full'>
                 <Head />
                 <Nav />
                 <ProtocolChooseTool getParams={getParams} />
                 {allItem ? <div className='w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 px-1 md:px-16 my-3'>
                     {allItem.map((item) => <ProtocolItem
-                        tag={false}
+                        key={item.id}
+                        id={item.id}
                         title={item.name}
-                        picture={item.picture} />)}
+                        picture={item.picture}
+                        itemDesc={item.itemDesc}
+                        tag={false}
+                    />)}
                     {/* <MultipleSlider /> */}
-                </div> : <Skeleton variant="rectangular" width={210} height={118} />}
+                </div> : <Skeleton animation="wave" variant="rectangular" width={800} height={118} />}
                 <div className='flex mx-auto py-8 px-4'>
                     <div></div>
-                    <Pagination sx={{ margin: "auto" }} count={10} color="primary" />
+                    <Pagination onChange={(event,page) => getParams({pageNo: page})} sx={{ margin: "auto" }} count={Math.ceil(total/12)} color="primary" />
                 </div>
                 <Footer />
             </div>

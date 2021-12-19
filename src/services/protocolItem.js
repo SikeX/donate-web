@@ -15,7 +15,7 @@ const getItemsByClassId = async (id) => {
 }
 
 const getItemById = async (id) => {
-    const result = await axios.get(baseUrl + 'protocolItem/protocolItem/queryById',
+    const result = await axios.get(baseUrl + 'user/protocolItem/queryById',
         { params: { id: id } })
     return result.data
 }
