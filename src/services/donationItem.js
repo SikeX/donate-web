@@ -4,18 +4,18 @@ import { BASE_URL } from "./api";
 const baseUrl = BASE_URL
 
 const getAllItem = async (params) => {
-    const result = await axios.get(baseUrl + 'donationItem/donationItem/list',{params:params})
+    const result = await axios.get(baseUrl + 'user/donationItem/list',{params:params})
     return result.data
 }
 
 const getItemsByClassId = async (id) => {
-    const result = await axios.get(baseUrl + 'donationItem/donationItem/queryByClassId',
+    const result = await axios.get(baseUrl + 'user/donationItem/queryByClassId',
         { params: { classId: id } })
     return result.data
 }
 
 const getItemById = async (id) => {
-    const result = await axios.get(baseUrl + 'donationItem/donationItem/queryById',
+    const result = await axios.get(baseUrl + 'user/donationItem/queryById',
         { params: { id: id } })
     return result.data
 }
