@@ -24,10 +24,10 @@ const Protocol = ({id}) => {
     return (
         <div className='flex flex-col space-y-2 text-sm'>
             <div className='flex space-x-2'>
-                <span className='my-auto'>选项：</span>
+                {/*<span className='my-auto'>选项：</span>
                 <div className='cursor-pointer px-2 py-1 border hover:border-blue-500 hover:text-blue-500 focus:text-blue-500'
                      onClick={() => {setIsfreeMoney(true)}}
-                >任意捐</div>
+                >任意捐</div>*/}
             </div>
 
         </div>
@@ -66,7 +66,8 @@ const ProtocolStatus = ({ id, title }) => {
                     <span className='text-gray-500 text-sm'>{donateDone ? 'done' : '协议项目详细信息'}</span>
                     <div className='text-2xl font-bold'>{itemDetail.name}</div>
                     <div className='text-sm text-gray-500'>{itemDetail.itemDesc}</div>
-                    <StatusBar target={parseInt(itemDetail.targetMoney)} raised={parseInt(itemDetail.raisedMoney)} support={50} />
+
+
                     {!donateDone && <Protocol id={id} />}
                     <div className='text-gray-500 text-sm'>{donateDone ? '项目已于2021-04-23 18:00结束众筹，感谢您的关注！' : '感谢您的大力支持，学校会认真负责地用好每一笔捐赠！'}</div>
                 </div>
@@ -81,6 +82,7 @@ const ProtocolStatus = ({ id, title }) => {
                                 <Tab sx={{ fontSize:16, fontWeight: 'bold' }} label="捐赠详情" />
                                 <Tab sx={{ fontSize:16, fontWeight: 'bold' }} label="捐赠故事" />
                                 <Tab sx={{ fontSize:16, fontWeight: 'bold' }} label="常见问题" />
+                                <Tab sx={{ fontSize:16, fontWeight: 'bold' }} label="支出情况" />
                             </Tabs>
                         </Box>
                         <TabPanel value={value} index={0}>
@@ -91,6 +93,9 @@ const ProtocolStatus = ({ id, title }) => {
                         </TabPanel>
                         <TabPanel value={value} index={2}>
                             <div dangerouslySetInnerHTML={{ __html: itemDetail.question }}></div>
+                        </TabPanel>
+                        <TabPanel value={value} index={3}>
+                            <div dangerouslySetInnerHTML={{ __html: itemDetail.cost }}></div>
                         </TabPanel>
                     </Box>
                 </div>

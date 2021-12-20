@@ -37,7 +37,7 @@ const NavItem = ({ title, menu }) => {
             {menu &&
                 <div className='menuItem absolute hidden left-1 top-6 bg-white border shadow-md rounded-md min-w-full py-1 cursor-pointer' style={{ zIndex: 10002 }}>
                    {title=='正在众筹' && allClass.map((item) => <MenuItem name={item.name} /> )}
-                   {title=='协议项目' && allClass.map((item) => <MenuItem name={item.name} /> )}
+                   {title=='协议捐赠' && allClass.map((item) => <MenuItem name={item.name} /> )}
                 </div>}
         </div>
     )
@@ -64,7 +64,7 @@ const Nav = () => {
             <NavItem title='常见问题' menu={true} />
 
             <Link className='my-auto' to='/protocol'>
-            <NavItem title='协议项目' menu={true}/>
+            <NavItem title='协议捐赠' menu={true}/>
             </Link>
 
             <div className='hidden md:inline-block md:flex-grow'></div>
