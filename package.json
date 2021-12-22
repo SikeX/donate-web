@@ -31,8 +31,8 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start": "set PORT=3006 REACT_APP_ENV=dev && craco start FAST_REFRESH=true",
-    "build": "craco build",
+    "start": "PORT=3006 REACT_APP_ENV=dev craco start FAST_REFRESH=true",
+    "build": "PORT=3007 REACT_APP_ENV=production craco build",
     "test": "craco test",
     "eject": "react-scripts eject"
   },
