@@ -16,7 +16,7 @@ const ClsItem = ({ label, title, paramState, getFocusComp }) => {
     }, [paramState])
 
 
-    const style = isFocus ? 'bg-blue-300 hover:bg-blue-300 hover:text-blue-800 rounded-md cursor-pointer px-5 py-1' : 'bg-blue-100 hover:bg-blue-300 hover:text-blue-800 focus:bg-blue-800 rounded-md cursor-pointer px-5 py-1'
+    const style = isFocus ? 'bg-blue-300 hover:bg-blue-300 hover:text-blue-800 rounded-md cursor-pointer px-5 py-1 flex-shrink-0' : 'bg-blue-100 hover:bg-blue-300 hover:text-blue-800 focus:bg-blue-800 rounded-md cursor-pointer px-5 py-1 flex-shrink-0'
 
     console.log(getParams)
 
@@ -72,6 +72,7 @@ const DonateChooseTool = ({ }) => {
         donationClass: [{ name: '全部', focus: true },
         { name: '奖学金', focus: false },
         { name: '助学金', focus: false },
+        { name: '救助金', focus: false },
         { name: '科技创新基金', focus: false },
         { name: '社会实践基金', focus: false },
         { name: '创业就业基金', focus: false }],
@@ -136,16 +137,16 @@ const DonateChooseTool = ({ }) => {
     // }, [])
 
     return (
-        <div className='flex flex-col space-y-3 px-1 py-4 md:px-20'>
+        <div className='flex flex-col text-sm md:text-base space-y-3 px-1 py-4 md:px-20'>
             <div className='text-2xl font-bold py-4'>捐赠项目选择</div>
-            <div className='flex space-x-4 py-auto'>
+            <div className='flex space-x-3 py-auto'>
                 <div className='my-auto'>项目类别:</div>
                 <ClsItem getFocusComp={getFocusComp} paramState={paramState} label='category' title='全部' />
                 <ClsItem getFocusComp={getFocusComp} paramState={paramState} label='category' title='校级' />
                 <ClsItem getFocusComp={getFocusComp} paramState={paramState} label='category' title='院级' />
             </div>
-            <div className='flex space-x-4 py-auto'>
-                <div className='my-auto'>项目分类:</div>
+            <div className='flex space-x-3 py-auto overflow-auto'>
+                <div className='my-auto flex-shrink-0'>项目分类:</div>
                 <ClsItem getFocusComp={getFocusComp} paramState={paramState} label='donationClass' title='全部' />
                 {allClass.map((item) => <ClsItem getFocusComp={getFocusComp} paramState={paramState} label='donationClass' title={item.name} />)}
             </div>

@@ -4,6 +4,8 @@ const StatusBar = ({raised, target, leftDay,support}) => {
 
     const rate = raised / target * 100
 
+    console.log('rate is', rate)
+
     return (
         <div className='flex flex-col px-3 py-2 space-y-1 text-sm md:py-4 lg:py-6'>
             <div className='flex space-x-1 justify-start items-center'>
@@ -13,7 +15,7 @@ const StatusBar = ({raised, target, leftDay,support}) => {
                 <span className='text-gray-500 my-auto'>{rate.toFixed(2)}%</span>
             </div>
             <div className='w-full h-2  bg-blue-200 rounded-lg'>
-                <div style={{width: rate}} className='h-2 bg-blue-800 rounded-lg'></div>
+                <div style={{width: rate + '%'}} className='h-2 bg-blue-800 rounded-lg'></div>
             </div>
             <div className='flex justify-start items-center'>
                 <span>￥{toMoney(target)}</span>

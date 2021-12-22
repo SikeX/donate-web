@@ -72,7 +72,7 @@ const DonateChoose = () => {
                 <Head />
                 <Nav />
                 <DonateChooseTool getParams={getParams} />
-                {allItem ? (<div className='w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 px-1 md:px-16 my-3'>
+                {total ? (<div className='w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 px-1 md:px-16 my-3'>
                     {allItem.map((item) => <DonateItem
                         key={item.id} 
                         id={item.id} 
@@ -84,7 +84,12 @@ const DonateChoose = () => {
                         leastMoney={item.leastMoney}
                         tag={false}
                         />)}
-                </div>) : (<Skeleton animation="wave" variant="rectangular" width={800} height={118} />)}
+                </div>) : (
+                    <div className='px-2 md:px-16 my-3 flex flex-col space-y-2'>
+                        <Skeleton animation="wave" variant="rectangular" />
+                        <Skeleton animation="wave" variant="rectangular" />
+                        <Skeleton animation="wave" variant="rectangular" />
+                    </div>)}
                 <div className='flex mx-auto py-8 px-4'>
                     <div></div>
                     <Pagination onChange={(event,page) => getParams({pageNo: page})} sx={{ margin: "auto" }} count={Math.ceil(total/12)} color="primary" />

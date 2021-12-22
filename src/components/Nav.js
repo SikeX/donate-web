@@ -27,7 +27,7 @@ const NavItem = ({ title, menu }) => {
     }, [])
 
     return (
-        <div className='menu hidden md:inline-block relative my-auto px-1'>
+        <div className='menu hidden lg:inline-block relative my-auto px-1'>
             <div className='flex'>
                 <span className=' px-2 text-gray-500 hover:text-blue-500 cursor-pointer '>{title}
                 </span>
@@ -53,7 +53,7 @@ const Nav = () => {
 
     return (
         <div className='flex shadow-sm w-full px-2 py-5'>
-            <div className='hidden md:block text-blue-500 text-2xl font-bold my-auto px-2'>校友众筹平台</div>
+            <div className='hidden lg:block text-blue-500 text-2xl font-bold my-auto px-2'>校友众筹平台</div>
             <Link className='my-auto' to='/'>
                 <NavItem title='首页' menu={false} />
             </Link>
@@ -68,6 +68,7 @@ const Nav = () => {
             </Link>
 
             <div className='hidden md:inline-block md:flex-grow'></div>
+            <div className='hidden lg:inline-block lg:flex-grow'></div>
             <form className='flex-grow md:w-40 flex'>
                 <span className='absolute text-gray-500 text-xl pl-2 py-2'>
                     <FaSearch />

@@ -9,6 +9,7 @@ import Box from '@mui/material/Box';
 import { FILE_BASE_URL } from "../services/api";
 import TabPanel from "./UI/TabPanel";
 import { Link, useHistory } from "react-router-dom"
+import donationItem from "../services/donationItem";
 
 
 const Item = ({ name }) => {
@@ -37,6 +38,7 @@ const Protocol = ({id}) => {
 const ProtocolStatus = ({ id, title }) => {
     const [donateDone, setDonateDone] = useState(false)
     const [itemDetail, setItemDetail] = useState({})
+    const [option, setOption] = useState([])
 
     console.log(itemDetail)
 
@@ -46,6 +48,14 @@ const ProtocolStatus = ({ id, title }) => {
         protocolItem.getItemById(id).then((res) => {
             if (res.success) {
                 setItemDetail(res.result)
+            }
+        })
+    }, [])
+    useEffect(() => {
+        protocolItem.getOptionById(id).then((res) => {
+            if (res.success) {
+                console.log(res)
+                setOption(res.result)
             }
         })
     }, [])
@@ -80,11 +90,13 @@ const ProtocolStatus = ({ id, title }) => {
                 <div className='flex bg-white'>
                     <Box sx={{ width: '90%' }}>
                         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                            <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-                                <Tab sx={{ fontSize:16, fontWeight: 'bold' }} label="捐赠详情" />
-                                <Tab sx={{ fontSize:16, fontWeight: 'bold' }} label="捐赠故事" />
-                                <Tab sx={{ fontSize:16, fontWeight: 'bold' }} label="常见问题" />
-                                <Tab sx={{ fontSize:16, fontWeight: 'bold' }} label="支出情况" />
+                            <Tabs value={value} onChange={handleChange}
+                            variant="scrollable" scrollButtons={false}
+                            aria-label="scrollable prevent tabs example">
+                                <Tab sx={{ fontSize: 16, fontWeight: 'bold' }} label="捐赠详情" />
+                                <Tab sx={{ fontSize: 16, fontWeight: 'bold' }} label="捐赠故事" />
+                                <Tab sx={{ fontSize: 16, fontWeight: 'bold' }} label="常见问题" />
+                                <Tab sx={{ fontSize: 16, fontWeight: 'bold' }} label="支出情况" />
                             </Tabs>
                         </Box>
                         <TabPanel value={value} index={0}>

@@ -9,6 +9,8 @@ module.exports = {
           '1/2': '50%',
           '3/4': '75%'
         },
+        backgroundColor: ['checked'],
+        borderColor: ['checked'],
         transitionProperty: {
           'width': 'width'
         },

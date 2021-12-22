@@ -11,7 +11,9 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import { loadCaptchaEnginge, LoadCanvasTemplate, LoadCanvasTemplateNoReload, validateCaptcha } from 'react-simple-captcha';
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import donationItem from "../services/donationItem";
+import { FILE_BASE_URL } from "../services/api";
 
 const Info = () => {
     return (
@@ -49,27 +51,35 @@ const top100Films = [
 
 const Order = (props) => {
 
+    const [item, setItem] = useState({})
+
+    useEffect(() => {
+        donationItem.getItemById(props.match.params.id).then((res) => {
+            if(res.success) {
+                setItem(res.result)
+            }
+        })
+    }, [])
+
     useEffect(() => {
         loadCaptchaEnginge(6, '#1e40af', 'white');
     }, [])
-
 
     console.log(props.match.params.name)
     return (
         <div className='w-full h-screen flex flex-col'>
             <Head />
             <Nav />
-            <div className='w-full flex md:flex-row flex-col flex-grow bg-gray-100 md:px-16 md:py-8 space-y-2 md:space-x-2' >
-                <div className='w-full md:w-2/5 flex flex-col bg-white shadow-lg rounded-lg'>
-                    <div className='w-full h-0 pb-1/2 bg-red-400 rounded-t-lg'></div>
+            <div className='w-full flex lg:flex-row flex-col flex-grow bg-gray-100 lg:px-16 lg:py-8 space-y-2 md:space-x-2' >
+                <div className='w-full lg:w-1/3 flex flex-col bg-white shadow-lg rounded-lg'>
+                    <div style={{ backgroundImage: 'url(' + FILE_BASE_URL + item.picture + ')' }} className='w-full h-0 pb-3/4 bg-red-400 rounded-t-lg bg-cover '></div>
                     <div className='flex flex-col flex-grow p-4 '>
-                        <div className='px-2 py-1' >订单号：</div>
-                        <div className='px-2 py-1' >xxx基金会</div>
+                        <div className='px-2 py-1' >哈尔滨工程大学校友基金会</div>
                         <div className='px-2 py-1' >校友捐赠</div>
                         <div className='px-2 py-1' >总金额</div>
                     </div>
                 </div>
-                <div className='w-full'>
+                <div className='w-full lg:w-2/3'>
                     <div className='bg-white w-full flex flex-col space-y-8 py-4 px-4 md:px-16'>
                         <div className='py-3 flex flex-col space-y-2'>
                             <div className='text-xl font-bold' >捐赠信息填写</div>

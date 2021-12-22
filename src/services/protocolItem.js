@@ -20,13 +20,9 @@ const getItemById = async (id) => {
     return result.data
 }
 
-const getAll = async () => {
-    const result = await axios.get(baseUrl)
-    return result.data
-}
-
-const getTodoList = async (todo) => {
-    const result = await axios.get(`${baseUrl}/${todo}`)
+const getOptionById = async (id) => {
+    const result = await axios.get(baseUrl + 'user/protocolItem/queryProtocolOptionByMainId',
+        { params: { id: id } })
     return result.data
 }
 
@@ -48,5 +44,6 @@ const deleteTodo = async (taskName, todoName) => {
 export default {
     getAllItem: getAllItem,
     getItemsByClassId: getItemsByClassId,
-    getItemById: getItemById
+    getItemById: getItemById,
+    getOptionById: getOptionById
 }

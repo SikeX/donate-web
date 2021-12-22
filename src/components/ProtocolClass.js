@@ -1,8 +1,8 @@
 import ProtocolItem from './ProtocolItem'
 import { Link } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useEffect,useState } from 'react'
 import protocolItem from '../services/protocolItem'
-import { useState } from 'react/cjs/react.development'
+
 
 
 const ProtocolClass = ({id, name}) => {
