@@ -1,8 +1,7 @@
 import DonateItem from './DonateItem'
 import { Link } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useEffect, useState} from 'react'
 import donationItem from '../services/donationItem'
-import { useState } from 'react/cjs/react.development'
 
 const DonateClass = ({id, name}) => {
 
