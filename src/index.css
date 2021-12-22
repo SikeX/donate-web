@@ -22,3 +22,13 @@
         transform: translateX(-100%);
     }
 }
+
+.donation-option input:checked + label {
+    color: blue;
+    border-color: rgba(59, 130, 246,1)
+}
+
+.donation-option input:not(:checked) + label {
+    --bg-opacity: 0;
+    box-shadow: none;
+}
