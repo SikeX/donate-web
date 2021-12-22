@@ -3,6 +3,7 @@ import { FaSearch, FaCaretDown } from 'react-icons/fa'
 import { Link, useHistory } from 'react-router-dom'
 import donationClass from '../services/donationClass'
 import donationItem from '../services/donationItem'
+import protocolClass from "../services/protocolClass";
 
 const MenuItem = ({ name }) => {
     return (
@@ -19,6 +20,11 @@ const NavItem = ({ title, menu }) => {
             setAllClass(res.result.records)
         })
     }, [])
+    useEffect(() => {
+        protocolClass.getAllClass().then((res) => {
+            setAllClass(res.result.records)
+        })
+    }, [])
 
     return (
         <div className='menu hidden md:inline-block relative my-auto px-1'>
@@ -31,6 +37,7 @@ const NavItem = ({ title, menu }) => {
             {menu &&
                 <div className='menuItem absolute hidden left-1 top-6 bg-white border shadow-md rounded-md min-w-full py-1 cursor-pointer' style={{ zIndex: 10002 }}>
                    {title=='正在众筹' && allClass.map((item) => <MenuItem name={item.name} /> )}
+                   {title=='协议捐赠' && allClass.map((item) => <MenuItem name={item.name} /> )}
                 </div>}
         </div>
     )
@@ -55,6 +62,11 @@ const Nav = () => {
             </Link>
             <NavItem title='经典回顾' menu={true} />
             <NavItem title='常见问题' menu={true} />
+
+            <Link className='my-auto' to='/protocol'>
+            <NavItem title='协议捐赠' menu={true}/>
+            </Link>
+
             <div className='hidden md:inline-block md:flex-grow'></div>
             <form className='flex-grow md:w-40 flex'>
                 <span className='absolute text-gray-500 text-xl pl-2 py-2'>
