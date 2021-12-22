@@ -60,13 +60,14 @@ const MySlider = () => {
 
   return (
     <Carousel className='w-full'
+      itemClass="image-item"
       swipeable={true}
       showDots={true}
       responsive={responsive}
       infinite={true}
       autoPlay={true}
       autoPlaySpeed={5000}
-      customTransition='all .5 linear'
+      // customTransition='all .5 linear'
       transitionDuration={500}
       removeArrowOnDeviceType={["tablet", "mobile"]}
     >
