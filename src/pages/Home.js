@@ -23,7 +23,7 @@ const Home = () => {
     return (
         <div className="flex w-screen flex-col">
             <Head />
-            <div className='flex flex-col-reverse md:flex-col'>
+            <div className='flex flex-col-reverse lg:flex-col'>
                 <Nav />
                 <MySlider />
             </div>
