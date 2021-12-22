@@ -79,6 +79,8 @@ const ProtocolChoose = () => {
                         title={item.name}
                         picture={item.picture}
                         itemDesc={item.itemDesc}
+                        createTime={item.createTime}
+                        endTime={item.endTime}
                         tag={false}
                     />)}
                     {/* <MultipleSlider /> */}

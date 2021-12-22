@@ -4,7 +4,7 @@ import { FILE_BASE_URL } from "../services/api"
 import StatusBar from "./StatusBar"
 
 const ProtocolItem = (props) => {
-    const {id, itemDesc,tag=true, title, targetMoney, raisedMoney, picture}=props
+    const {id, itemDesc,tag=true, title, createTime,endTime, picture}=props
 
     let history = useHistory()
 
@@ -36,6 +36,17 @@ const ProtocolItem = (props) => {
                     </div>
 
                 </div>
+                <div className='flex flex-col px-4'>
+
+                    <div className='hidden md:block text-gray-500 text-xs md:break-all md:h-auto truncate md:overflow-clip md:whitespace-normal md:py-2 lg:pb-6'>
+                        开始时间：{createTime}
+                    </div>
+                    <div className='hidden md:block text-gray-500 text-xs md:break-all md:h-auto truncate md:overflow-clip md:whitespace-normal md:py-2 lg:pb-6'>
+                        结束时间：{endTime}
+                    </div>
+
+                </div>
+
 
             </div>
         </div>

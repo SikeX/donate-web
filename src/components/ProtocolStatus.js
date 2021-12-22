@@ -66,6 +66,8 @@ const ProtocolStatus = ({ id, title }) => {
                     <span className='text-gray-500 text-sm'>{donateDone ? 'done' : '协议项目详细信息'}</span>
                     <div className='text-2xl font-bold'>{itemDetail.name}</div>
                     <div className='text-sm text-gray-500'>{itemDetail.itemDesc}</div>
+                    <div className='text-sm text-gray-500'>开始时间：{itemDetail.createTime}</div>
+                    <div className='text-sm text-gray-500'>结束时间：{itemDetail.endTime}</div>
 
 
                     {!donateDone && <Protocol id={id} />}
