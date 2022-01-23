@@ -31,17 +31,17 @@ const ProtocolItem = (props) => {
                     <div className='text-gray-400 text-sm'>协议捐赠</div>
 
                     <div onClick={showDetail} className='md:py-2 hover:underline font-bold' >{title}</div>
-                    <div className='hidden md:block text-gray-500 text-xs md:break-all md:h-auto truncate md:overflow-clip md:whitespace-normal md:py-2 lg:pb-6'>
+                    <div className='md:block text-gray-500 text-xs md:break-all md:h-auto truncate md:overflow-clip md:whitespace-normal md:py-2 lg:pb-6'>
                         {itemDesc}
                     </div>
 
                 </div>
                 <div className='flex flex-col px-4'>
 
-                    <div className='hidden md:block text-gray-500 text-xs md:break-all md:h-auto truncate md:overflow-clip md:whitespace-normal md:py-2 lg:pb-6'>
+                    <div className='md:block text-gray-500 text-xs md:break-all md:h-auto truncate md:overflow-clip md:whitespace-normal md:py-2 lg:pb-6'>
                         开始时间：{createTime}
                     </div>
-                    <div className='hidden md:block text-gray-500 text-xs md:break-all md:h-auto truncate md:overflow-clip md:whitespace-normal md:py-2 lg:pb-6'>
+                    <div className='md:block text-gray-500 text-xs md:break-all md:h-auto truncate md:overflow-clip md:whitespace-normal md:py-2 lg:pb-6'>
                         结束时间：{endTime}
                     </div>
 
