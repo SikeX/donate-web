@@ -7,12 +7,12 @@ function ClsItem({
 }) {
   const { setParams, getParams, paramMap } = useContext(MyContext)
 
-  console.log(paramState[[label]].find((item) => item.name == title))
+  console.log(paramState[[label]].find((item) => item.name === title))
 
-  const [isFocus, setIsFocus] = useState(paramState[[label]].find((item) => item.name == title).focus)
+  const [isFocus, setIsFocus] = useState(paramState[[label]].find((item) => item.name === title).focus)
 
   useEffect(() => {
-    setIsFocus(paramState[[label]].find((item) => item.name == title).focus)
+    setIsFocus(paramState[[label]].find((item) => item.name === title).focus)
   }, [paramState])
 
   const style = isFocus ? 'bg-blue-300 hover:bg-blue-300 hover:text-blue-800 rounded-md cursor-pointer px-5 py-1 flex-shrink-0' : 'bg-blue-100 hover:bg-blue-300 hover:text-blue-800 focus:bg-blue-800 rounded-md cursor-pointer px-5 py-1 flex-shrink-0'
@@ -105,7 +105,7 @@ function DonateChooseTool() {
     const newParam = paramState[[comp.label]].map((item) => {
       let tmp = {}
       tmp.name = item.name
-      if (item.name == comp.name) {
+      if (item.name === comp.name) {
         tmp.focus = true
       } else {
         tmp.focus = false
