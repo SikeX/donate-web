@@ -1,10 +1,8 @@
 const toMoney = (num) => {
-    num = num.toFixed(2) // float num to string
-    num = parseFloat(num) // string to float
-    num = num.toLocaleString(num) //to string Format date/money
-    return num
+  const newNum = num.toLocaleString(parseFloat(num.toFixed(2))) // to string Format date/money
+  return newNum
 }
 
 export {
-    toMoney
+  toMoney
 }
