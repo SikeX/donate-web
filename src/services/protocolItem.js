@@ -10,7 +10,7 @@ const getAllItem = async (params) => {
 
 const getItemsByClassId = async (id) => {
   const result = await axios.get(
-    `${baseUrl}user/protocolItem/queryByClassId`,
+    `${baseUrl}/user/protocolItem/queryByClassId`,
     { params: { classId: id } }
   )
   return result.data
@@ -18,7 +18,7 @@ const getItemsByClassId = async (id) => {
 
 const getItemById = async (id) => {
   const result = await axios.get(
-    `${baseUrl}user/protocolItem/queryById`,
+    `${baseUrl}/user/protocolItem/queryById`,
     { params: { id } }
   )
   return result.data

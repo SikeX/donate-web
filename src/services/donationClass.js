@@ -4,7 +4,7 @@ import { BASE_URL } from './api'
 const baseUrl = BASE_URL
 
 const getAllClass = async () => {
-  const result = await axios.get(`${baseUrl}user/donationClass/list`)
+  const result = await axios.get(`${baseUrl}/user/donationClass/list`)
   return result.data
 }
 

@@ -9,25 +9,29 @@ import {
   loadCaptchaEnginge, LoadCanvasTemplate, LoadCanvasTemplateNoReload, validateCaptcha
 } from 'react-simple-captcha'
 import {
-  React, useEffect, useState, useRef
+  React, useEffect, useState,
 } from 'react'
 import { Formik, Form } from 'formik'
 import * as yup from 'yup'
-import { TextField, Autocomplete } from '@mui/material'
+import { TextField, Autocomplete, Link } from '@mui/material'
+import { useHistory } from 'react-router-dom'
 import donationItem from '../services/donationItem'
 import { FILE_BASE_URL } from '../services/api'
 import dict from '../services/dict'
 import Nav from '../components/Nav'
 import Head from '../components/Head'
 import Footer from '../components/Footer'
+import FormikRadio from '../components/UI/FormikRadio'
+import order from '../services/order'
 
 function Info(props) {
-  // eslint-disable-next-line react/destructuring-assignment
-  const { allParams } = props.match.params
+  const { id, option } = props.match.params
 
   const [item, setItem] = useState({})
 
   const [depatDict, setDepatDict] = useState([])
+
+  const history = useHistory()
 
   // form data
   //   const [name, setName] = useState('')
@@ -52,8 +56,8 @@ function Info(props) {
       .string('请输入您的邮箱')
       .email('请输入有效的邮箱')
       .required('请输入您的邮箱'),
-    department: yup
-      .string('请选择您的院系/部门'),
+    // department: yup
+    //   .string('请选择您的院系/部门'),
   })
 
   const initialValues = {
@@ -61,12 +65,19 @@ function Info(props) {
     phone: '',
     email: '',
     msg: '',
-    // department: {value: '', text: '', title: ''},
+    isSchoolMate: '',
+    department: { value: '', text: '', title: '' },
+    capture: '',
   }
+
+  const isSchoolMateOptions = [
+    { label: '是', value: 'yes' },
+    { label: '否', value: 'no' }
+  ]
 
   useEffect(() => {
     // eslint-disable-next-line react/prop-types
-    donationItem.getItemById(allParams.id).then((res) => {
+    donationItem.getItemById(id).then((res) => {
       // console.log(props.match.params)
       if (res.success) {
         console.log(initialValues)
@@ -75,9 +86,9 @@ function Info(props) {
     })
   }, [])
 
-  // useEffect(() => {
-  //     loadCaptchaEnginge(6, '#1e40af', 'white');
-  // }, [])
+  useEffect(() => {
+    loadCaptchaEnginge(6, '#1e40af', 'white')
+  }, [])
 
   useEffect(() => {
     dict.getDictItems({ dictCode: 'department' }).then((res) => {
@@ -88,9 +99,28 @@ function Info(props) {
   }, [])
 
   const handleSubmit = (e) => {
-    console.log(e)
-    alert('haha')
-    // alert(JSON.stringify(e, null, 2))
+    console.log(e.capture)
+    console.log(validateCaptcha(e.capture))
+    if (validateCaptcha(e.capture) === false) {
+      alert('您输入的验证码不正确!')
+    } else {
+      const orderInfo = {}
+      orderInfo.name = e.name
+      orderInfo.email = e.email
+      orderInfo.phone = e.phone
+      orderInfo.donationMsg = e.msg
+      orderInfo.department = e.department.value
+      orderInfo.isSchoolmate = e.isSchoolMate === 'yes' ? '1' : '0'
+      orderInfo.money = option
+      order.postOrder(orderInfo).then((res) => {
+        console.log(res)
+        if (res.success) {
+          console.log('订单提交成功')
+          history.push(`/order/${res.result.orderNo}`)
+        }
+      })
+      // alert(JSON.stringify(e, null, 2))
+    }
   }
 
   // const handleChange = (e, name) => {
@@ -98,7 +128,6 @@ function Info(props) {
   //     console.log(e.target.value)
   // }
 
-  console.log(allParams.name)
   return (
     <div className="w-full h-screen flex flex-col">
       <Head />
@@ -111,7 +140,7 @@ function Info(props) {
             <div className="px-2 py-1">{item.name}</div>
             <div className="w-full h-px mx-2 my-2 bg-blue-800" />
             <div className="px-2 py-1 text-gray-500">总金额</div>
-            <div className="px-1 py-1 text-3xl font-bold ">￥{allParams.option} CNY</div>
+            <div className="px-1 py-1 text-3xl font-bold ">￥{option} CNY</div>
           </div>
         </div>
         <div className="w-full lg:w-2/3">
@@ -172,11 +201,16 @@ function Info(props) {
                     error={touched.email && Boolean(errors.email)}
                     helperText={touched.email && errors.email}
                   />
+                  <FormLabel component="legend">是否是校友</FormLabel>
+                  <FormikRadio
+                    name="isSchoolMate"
+                    options={isSchoolMateOptions}
+                  />
                   <Autocomplete
                     // id='department'
                     name="department"
                     options={depatDict}
-                    getOptionLabel={(option) => option.text}
+                    getOptionLabel={(v) => v.text}
                     style={{ width: 300 }}
                     value={values.department}
                     onChange={(e, value) => {
@@ -220,24 +254,23 @@ function Info(props) {
                                             <FormControlLabel value="female" control={<Radio />} label="是" />
                                             <FormControlLabel value="male" control={<Radio />} label="否" />
                                         </RadioGroup>
-                                        <FormLabel component="legend">是否是校友</FormLabel>
-                                        <RadioGroup row aria-label="gender" name="row-radio-buttons-group">
-                                            <FormControlLabel value="female" control={<Radio />} label="是" />
-                                            <FormControlLabel value="male" control={<Radio />} label="否" />
-                                        </RadioGroup>
                                     </FormControl> */}
-                  {/* <div className="flex w-full">
-                                        <div className='w-full'></div>
-                                        <LoadCanvasTemplateNoReload backgroundColor='blue' />
-                                    </div> */}
                   <div className="flex w-full">
                     <div className="w-full" />
-                    {/* <TextField
-                                        label="验证码"
-                                        placeholder="请输入验证码"
-                                        id="outlined-size-small"
-                                        size="small"
-                                    /> */}
+                    <LoadCanvasTemplateNoReload backgroundColor="blue" />
+                  </div>
+                  <div className="flex w-full">
+                    <div className="w-full" />
+                    <TextField
+                      name="capture"
+                      type="capture"
+                      label="验证码"
+                      placeholder="请输入验证码"
+                      onChange={handleChange}
+                      id="outlined-size-small"
+                      size="small"
+                      required
+                    />
                   </div>
                   <div className="flex w-full">
                     <div className="w-full" />

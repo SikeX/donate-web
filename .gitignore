@@ -11,6 +11,7 @@
 # production
 /build
 *.zip
+*.sh
 
 # misc
 .DS_Store

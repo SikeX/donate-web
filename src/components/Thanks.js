@@ -1,4 +1,5 @@
 function Thanks() {
+  // TODO
   const thanksList = []
   return (
     <div className="w-full overflow-hidden">

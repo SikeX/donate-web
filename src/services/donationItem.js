@@ -4,13 +4,13 @@ import { BASE_URL } from './api'
 const baseUrl = BASE_URL
 
 const getAllItem = async (params) => {
-  const result = await axios.get(`${baseUrl}user/donationItem/list`, { params })
+  const result = await axios.get(`${baseUrl}/user/donationItem/list`, { params })
   return result.data
 }
 
 const getItemsByClassId = async (id) => {
   const result = await axios.get(
-    `${baseUrl}user/donationItem/queryByClassId`,
+    `${baseUrl}/user/donationItem/queryByClassId`,
     { params: { classId: id } }
   )
   return result.data
@@ -18,7 +18,7 @@ const getItemsByClassId = async (id) => {
 
 const getItemById = async (id) => {
   const result = await axios.get(
-    `${baseUrl}user/donationItem/queryById`,
+    `${baseUrl}/user/donationItem/queryById`,
     { params: { id } }
   )
   return result.data
@@ -26,15 +26,10 @@ const getItemById = async (id) => {
 
 const getOptionById = async (id) => {
   const result = await axios.get(
-    `${baseUrl}user/donationItem/queryDonationOptionByMainId`,
+    `${baseUrl}/user/donationItem/queryDonationOptionByMainId`,
     { params: { id } }
   )
   return result.data
-}
-
-const postTaskList = async (task) => {
-  const result = axios.post(`${baseUrl}/Tasks`, task)
-  return result
 }
 
 const postTodo = async (taskName, todo) => {
