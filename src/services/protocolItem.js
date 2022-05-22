@@ -4,7 +4,7 @@ import { BASE_URL } from './api'
 const baseUrl = BASE_URL
 
 const getAllItem = async (params) => {
-  const result = await axios.get(`${baseUrl}user/protocolItem/list`, { params })
+  const result = await axios.get(`${baseUrl}/user/protocolItem/list`, { params })
   return result.data
 }
 

@@ -14,7 +14,9 @@ import {
 import { Formik, Form } from 'formik'
 import * as yup from 'yup'
 import { TextField, Autocomplete, Link } from '@mui/material'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
+import toast, { Toaster } from 'react-hot-toast'
 import donationItem from '../services/donationItem'
 import { FILE_BASE_URL } from '../services/api'
 import dict from '../services/dict'
@@ -25,9 +27,12 @@ import FormikRadio from '../components/UI/FormikRadio'
 import order from '../services/order'
 
 function Info(props) {
-  const { id, option } = props.match.params
+  console.log(useParams())
+  const { itemId, optionId, number } = useParams()
 
   const [item, setItem] = useState({})
+  const [optionMoney, setOptionMoney] = useState()
+  console.log(optionMoney)
 
   const [depatDict, setDepatDict] = useState([])
 
@@ -77,17 +82,38 @@ function Info(props) {
 
   useEffect(() => {
     // eslint-disable-next-line react/prop-types
-    donationItem.getItemById(id).then((res) => {
-      // console.log(props.match.params)
+    donationItem.getItemById(itemId).then((res) => {
+      console.log(res.result)
       if (res.success) {
         console.log(initialValues)
         setItem(res.result)
+      } else {
+        history.push('/404')
       }
     })
   }, [])
 
   useEffect(() => {
-    loadCaptchaEnginge(6, '#1e40af', 'white')
+    if (number !== undefined) {
+      donationItem.getOptionById(itemId).then((res2) => {
+        console.log(res2.result)
+        if (res2.success) {
+          const optionList = res2.result
+          console.log(optionId)
+          const option = optionList.find((i) => i.id === optionId)
+          if (option === undefined) {
+            history.push('/404')
+            return
+          }
+          console.log(option)
+          setOptionMoney(option.money)
+        }
+      })
+    }
+  }, [itemId, optionId])
+
+  useEffect(() => {
+    loadCaptchaEnginge(4, '#1e40af', 'white')
   }, [])
 
   useEffect(() => {
@@ -102,7 +128,7 @@ function Info(props) {
     console.log(e.capture)
     console.log(validateCaptcha(e.capture))
     if (validateCaptcha(e.capture) === false) {
-      alert('您输入的验证码不正确!')
+      toast.error('您输入的验证码不正确,请重新输入!(验证码大小写敏感)')
     } else {
       const orderInfo = {}
       orderInfo.name = e.name
@@ -111,11 +137,14 @@ function Info(props) {
       orderInfo.donationMsg = e.msg
       orderInfo.department = e.department.value
       orderInfo.isSchoolmate = e.isSchoolMate === 'yes' ? '1' : '0'
-      orderInfo.money = option
+      orderInfo.itemId = itemId
+      orderInfo.optionId = number ? '1' : optionId
+      orderInfo.money = number ? number * optionMoney : optionId
+      orderInfo.piece = number || 1
       order.postOrder(orderInfo).then((res) => {
         console.log(res)
         if (res.success) {
-          console.log('订单提交成功')
+          toast.success('订单提交成功')
           history.push(`/order/${res.result.orderNo}`)
         }
       })
@@ -130,6 +159,7 @@ function Info(props) {
 
   return (
     <div className="w-full h-screen flex flex-col">
+      <Toaster />
       <Head />
       <Nav />
       <div className="w-full flex lg:flex-row flex-col flex-grow bg-gray-100 lg:px-16 lg:py-8 space-y-2 md:space-x-2">
@@ -140,7 +170,7 @@ function Info(props) {
             <div className="px-2 py-1">{item.name}</div>
             <div className="w-full h-px mx-2 my-2 bg-blue-800" />
             <div className="px-2 py-1 text-gray-500">总金额</div>
-            <div className="px-1 py-1 text-3xl font-bold ">￥{option} CNY</div>
+            <div className="px-1 py-1 text-3xl font-bold ">￥{number ? number * optionMoney : optionId} CNY</div>
           </div>
         </div>
         <div className="w-full lg:w-2/3">
@@ -265,10 +295,10 @@ function Info(props) {
                       name="capture"
                       type="capture"
                       label="验证码"
-                      placeholder="请输入验证码"
+                      placeholder="(大小写敏感)"
                       onChange={handleChange}
                       id="outlined-size-small"
-                      size="small"
+                      size="normal"
                       required
                     />
                   </div>
