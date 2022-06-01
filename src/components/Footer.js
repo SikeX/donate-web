@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 function FootItem({ title }) {
   return (
     <span className="my-auto px-4 cursor-pointer hover:underline">{title}</span>
@@ -10,7 +12,9 @@ function Footer() {
       <div className="flex divide-x-2 divide-blue-900 justify-center py-8">
         <FootItem title="联系我们" />
         <FootItem title="常见问题" />
-        <FootItem title="捐赠查询" />
+        <Link className="my-auto" to="/search">
+          <FootItem title="捐赠查询" />
+        </Link>
       </div>
       <div className="py-8 mx-auto">
         版权所有©哈尔滨工程大学校友会

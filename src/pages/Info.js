@@ -1,9 +1,4 @@
-import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
-import Radio from '@mui/material/Radio'
-import RadioGroup from '@mui/material/RadioGroup'
-import FormControlLabel from '@mui/material/FormControlLabel'
-import FormControl from '@mui/material/FormControl'
 import FormLabel from '@mui/material/FormLabel'
 import {
   loadCaptchaEnginge, LoadCanvasTemplate, LoadCanvasTemplateNoReload, validateCaptcha
@@ -13,9 +8,8 @@ import {
 } from 'react'
 import { Formik, Form } from 'formik'
 import * as yup from 'yup'
-import { TextField, Autocomplete, Link } from '@mui/material'
+import { TextField, Autocomplete } from '@mui/material'
 import { useHistory, useParams } from 'react-router-dom'
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import toast, { Toaster } from 'react-hot-toast'
 import donationItem from '../services/donationItem'
 import { FILE_BASE_URL } from '../services/api'
@@ -37,15 +31,6 @@ function Info(props) {
   const [depatDict, setDepatDict] = useState([])
 
   const history = useHistory()
-
-  // form data
-  //   const [name, setName] = useState('')
-  //   const [phone, setPhone] = useState('')
-  //   const [email, setEmail] = useState('')
-  //   const [depart, setDepart] = useState('')
-  //   const [msg, setMsg] = useState('')
-  //   const [inTime, setInTime] = useState('')
-  //   const [stuNo, setStuNo] = useState('')
 
   const phoneRegExp = /^1(3\d|4[5-9]|5[0-35-9]|6[2567]|7[0-8]|8\d|9[0-35-9])\d{8}$/
 

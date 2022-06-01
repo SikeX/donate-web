@@ -24,6 +24,11 @@ const getOrdersByItemId = async (itemId) => {
   return result.data
 }
 
+const getOrdersByPhone = async (phone) => {
+  const result = await axios.get(`${baseUrl}/user/donationOrder/queryByPhone`, { params: { phone } })
+  return result.data
+}
+
 const postAlipay = async (orderInfo) => {
   const result = await axios.post(`${baseUrl}/alipay/create`, qs.stringify(orderInfo), {
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8' },
@@ -43,4 +48,5 @@ export default {
   postAlipay,
   postWxPay,
   getOrdersByItemId,
+  getOrdersByPhone,
 }

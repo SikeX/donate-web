@@ -13,6 +13,8 @@ import Info from './pages/Info'
 import Order from './pages/Order'
 import NotFound from './pages/NotFound'
 import WxPay from './pages/WxPay'
+import Issues from './pages/Issues'
+import Search from './pages/Search'
 // import DonateChoose from './pages/DonateChoose'
 // import ProtocolChoose from './pages/ProtocolChoose'
 
@@ -31,6 +33,8 @@ function App() {
         <Route path="/order/:orderNo" component={Order} />
         <Route path="/donate" component={DonateChoose} />
         <Route path="/protocol" component={Protocol} />
+        <Route path="/issues" component={Issues} />
+        <Route path="/search" component={Search} />
         <Route path="/404" component={NotFound} />
 
         <Route path="/" component={Home} />

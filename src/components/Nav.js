@@ -114,7 +114,12 @@ function Nav() {
       </Link>
       <NavItem title="正在众筹" menu />
       <NavItem title="经典回顾" menu />
-      <NavItem title="常见问题" menu />
+      <Link className="my-auto" to="/issues">
+        <NavItem title="常见问题" menu={false} />
+      </Link>
+      <Link className="my-auto" to="/search">
+        <NavItem title="捐赠查询" menu={false} />
+      </Link>
 
       <Link className="my-auto" to="/protocol">
         {isLogin && <NavItem title="协议捐赠" menu />}
