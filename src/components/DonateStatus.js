@@ -11,6 +11,7 @@ import { FILE_BASE_URL } from '../services/api'
 import TabPanel from './UI/TabPanel'
 import StatusBar from './StatusBar'
 import donationItem from '../services/donationItem'
+import DonationRecord from './DonationRecord'
 
 function Item({ name }) {
   return (
@@ -64,7 +65,7 @@ function Donate({ option, leastMoney }) {
   }
 
   const submitDonation = () => {
-    console.log(totalMoney < 0)
+    console.log(totalMoney)
     if (/[1-9]+/g.exec(totalMoney) === null) {
       toast.error('请输入正确的金额')
       return
@@ -78,7 +79,7 @@ function Donate({ option, leastMoney }) {
       return
     }
     if (totalMoney >= 10000) {
-      toast.info('捐赠金额大于10000元，请联系管理员')
+      toast.error('捐赠金额大于10000元，请联系管理员')
       return
     }
     if (totalMoney <= 0) {
@@ -148,7 +149,7 @@ function DonateStatus({ id, title }) {
         history.push('/404')
       }
     })
-  }, [])
+  }, [id])
 
   useEffect(() => {
     donationItem.getOptionById(id).then((res) => {
@@ -187,6 +188,7 @@ function DonateStatus({ id, title }) {
                 <Tab sx={{ fontSize: 16, fontWeight: 'bold' }} label="捐赠详情" />
                 <Tab sx={{ fontSize: 16, fontWeight: 'bold' }} label="捐赠故事" />
                 <Tab sx={{ fontSize: 16, fontWeight: 'bold' }} label="常见问题" />
+                <Tab sx={{ fontSize: 16, fontWeight: 'bold' }} label="捐赠记录" />
               </Tabs>
             </Box>
             <TabPanel value={value} index={0}>
@@ -197,6 +199,9 @@ function DonateStatus({ id, title }) {
             </TabPanel>
             <TabPanel value={value} index={2}>
               <div dangerouslySetInnerHTML={{ __html: itemDetail.question }} />
+            </TabPanel>
+            <TabPanel value={value} index={3}>
+              <DonationRecord id={id} />
             </TabPanel>
           </Box>
         </div>

@@ -12,7 +12,7 @@ function DonateItem(props) {
 
   const imgUrl = FILE_BASE_URL + picture
 
-  console.log(title)
+  // console.log(title)
 
   const [raised, setRaised] = useState(parseInt(raisedMoney))
   const [target, setTarget] = useState(parseInt(targetMoney))

@@ -32,7 +32,7 @@ function Info(props) {
 
   const [item, setItem] = useState({})
   const [optionMoney, setOptionMoney] = useState()
-  console.log(optionMoney)
+  const [userInfo, setUserInfo] = useState(JSON.parse(localStorage.getItem('userInfo')))
 
   const [depatDict, setDepatDict] = useState([])
 
@@ -66,9 +66,9 @@ function Info(props) {
   })
 
   const initialValues = {
-    name: '',
-    phone: '',
-    email: '',
+    name: userInfo.username || '',
+    phone: userInfo.phone || '',
+    email: userInfo.email || '',
     msg: '',
     isSchoolMate: '',
     department: { value: '', text: '', title: '' },
@@ -81,7 +81,6 @@ function Info(props) {
   ]
 
   useEffect(() => {
-    // eslint-disable-next-line react/prop-types
     donationItem.getItemById(itemId).then((res) => {
       console.log(res.result)
       if (res.success) {
@@ -138,7 +137,7 @@ function Info(props) {
       orderInfo.department = e.department.value
       orderInfo.isSchoolmate = e.isSchoolMate === 'yes' ? '1' : '0'
       orderInfo.itemId = itemId
-      orderInfo.optionId = number ? '1' : optionId
+      orderInfo.optionId = number ? optionId : '1'
       orderInfo.money = number ? number * optionMoney : optionId
       orderInfo.piece = number || 1
       order.postOrder(orderInfo).then((res) => {
@@ -198,10 +197,10 @@ function Info(props) {
                       label="捐赠人姓名"
                       required
                       fullWidth
-                      // value={values.name}
+                      value={values.name}
                       onChange={handleChange}
-                      error={touched.name && Boolean(errors.name)}
-                      helperText={touched.name && errors.name}
+                      error={Boolean(errors.name)}
+                      helperText={errors.name}
                     />
                     {/* <RadioGroup className='w-full' row aria-label="gender" name="row-radio-buttons-group">
                                             <FormControlLabel value="female" control={<Radio />} label="先生" />
@@ -215,10 +214,10 @@ function Info(props) {
                     fullWidth
                     required
                     label="手机号"
-                    // value={values.phone}
+                    value={values.phone}
                     onChange={handleChange}
-                    error={touched.phone && Boolean(errors.phone)}
-                    helperText={touched.phone && errors.phone}
+                    error={Boolean(errors.phone)}
+                    helperText={errors.phone}
                   />
                   <TextField
                     name="email"
@@ -226,10 +225,10 @@ function Info(props) {
                     label="邮箱"
                     required
                     fullWidth
-                    // value={values.email}
+                    value={values.email}
                     onChange={handleChange}
-                    error={touched.email && Boolean(errors.email)}
-                    helperText={touched.email && errors.email}
+                    error={Boolean(errors.email)}
+                    helperText={errors.email}
                   />
                   <FormLabel component="legend">是否是校友</FormLabel>
                   <FormikRadio

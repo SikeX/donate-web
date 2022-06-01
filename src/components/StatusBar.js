@@ -6,7 +6,7 @@ function StatusBar({
   // eslint-disable-next-line no-mixed-operators
   const rate = raised / target * 100
 
-  console.log('rate is', rate)
+  // console.log('rate is', rate)
 
   return (
     <div className="flex flex-col px-3 py-2 space-y-1 text-sm md:py-4 lg:py-6">

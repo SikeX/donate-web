@@ -8,6 +8,11 @@ const getAllItem = async (params) => {
   return result.data
 }
 
+const searchItems = async (keyword) => {
+  const result = await axios.get(`${baseUrl}/user/donationItem/search`, { params: { keyword } })
+  return result.data
+}
+
 const getItemsByClassId = async (id) => {
   const result = await axios.get(
     `${baseUrl}/user/donationItem/queryByClassId`,
@@ -47,4 +52,5 @@ export default {
   getItemsByClassId,
   getItemById,
   getOptionById,
+  searchItems,
 }

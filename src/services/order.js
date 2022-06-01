@@ -19,6 +19,11 @@ const getOrder = async (orderNo) => {
   return result.data
 }
 
+const getOrdersByItemId = async (itemId) => {
+  const result = await axios.get(`${baseUrl}/user/donationOrder/queryByItemId`, { params: { itemId } })
+  return result.data
+}
+
 const postAlipay = async (orderInfo) => {
   const result = await axios.post(`${baseUrl}/alipay/create`, qs.stringify(orderInfo), {
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8' },
@@ -26,8 +31,8 @@ const postAlipay = async (orderInfo) => {
   return result.data
 }
 
-const postWxPay = async () => {
-  const result = await axios.get(`${baseUrl}/wxPay`)
+const postWxPay = async (wxOrderInfo) => {
+  const result = await axios.get(`${baseUrl}/wxPay`, { params: wxOrderInfo })
   return result.data
 }
 
@@ -37,4 +42,5 @@ export default {
   updateOrder,
   postAlipay,
   postWxPay,
+  getOrdersByItemId,
 }

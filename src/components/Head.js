@@ -41,7 +41,7 @@ function Head() {
     >
       <List>
         <ListItem>
-          <ListItemText primary="首页" />
+          <Link to="/"><ListItemText primary="首页" /></Link>
         </ListItem>
         <ListItem>
           <Link to="/donate"><ListItemText primary="正在众筹" /></Link>
@@ -79,7 +79,7 @@ function Head() {
           {list('left')}
         </Drawer>
       </React.Fragment>
-      <div className="mx-auto my-auto text-lg">哈尔滨工程大学捐赠平台</div>
+      <div className="mx-auto my-auto text-lg"><Link to="/">哈尔滨工程大学捐赠平台</Link></div>
       <div />
       {/* <HeadItem title='校友注册' />
             <HeadItem title='登录' />
