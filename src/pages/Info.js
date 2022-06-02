@@ -51,9 +51,9 @@ function Info(props) {
   })
 
   const initialValues = {
-    name: userInfo.username || '',
-    phone: userInfo.phone || '',
-    email: userInfo.email || '',
+    name: userInfo ? userInfo.username : '',
+    phone: userInfo ? userInfo.phone : '',
+    email: userInfo ? userInfo.email : '',
     msg: '',
     isSchoolMate: '',
     department: { value: '', text: '', title: '' },
