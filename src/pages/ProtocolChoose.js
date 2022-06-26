@@ -1,15 +1,11 @@
-import Pagination from '@mui/material/Pagination'
 import { useState, useEffect } from 'react'
 import Skeleton from '@mui/material/Skeleton'
-import { Item } from 'react-grid-carousel'
 import { useHistory } from 'react-router-dom'
 import Head from '../components/Head'
 import Nav from '../components/Nav'
-import MultipleSlider from '../components/MultipleSlider'
 import Footer from '../components/Footer'
 import protocolItem from '../services/protocolItem'
 import ProtocolItem from '../components/ProtocolItem'
-import protocolClass from '../services/protocolClass'
 
 function ProtocolChoose() {
   const [allItem, setAllItem] = useState([])
@@ -51,7 +47,9 @@ function ProtocolChoose() {
           ))}
           {/* <MultipleSlider /> */}
         </div>
-      ) : <Skeleton animation="wave" variant="rectangular" width={800} height={118} />}
+      ) : (
+        <Skeleton animation="wave" variant="rectangular" width={800} height={118} />
+      )}
       <div className="flex mx-auto py-8 px-4">
         <div />
         {/* <Pagination onChange={(event, page) => getParams({ pageNo: page })} sx={{ margin: 'auto' }} count={Math.ceil(total / 12)} color="primary" /> */}

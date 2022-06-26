@@ -19,6 +19,7 @@
     "@testing-library/user-event": "^12.8.3",
     "autoprefixer": "^9.8.6",
     "axios": "^0.24.0",
+    "eslint-config-alloy": "^4.5.1",
     "formik": "^2.2.9",
     "formik-material-ui": "^4.0.0-alpha.2",
     "material-ui-popup-state": "^3.1.1",
@@ -46,6 +47,7 @@
   "scripts": {
     "start": "PORT=3006 REACT_APP_ENV=dev craco start FAST_REFRESH=true",
     "build": "PORT=3007 GENERATE_SOURCEMAP=false REACT_APP_ENV=production craco build",
+    "lint": "eslint --ext .js,.ts,.tsx src/**/*.{js,ts,tsx}",
     "test": "craco test",
     "eject": "react-scripts eject"
   },

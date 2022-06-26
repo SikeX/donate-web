@@ -17,7 +17,11 @@ function SliderItem({ url, id }) {
   }
 
   return (
-    <div onClick={toDetail} style={{ backgroundImage: `url(${imgUrl})` }} className="w-full h-0 pb-1/3 bg-blue-200 bg-cover cursor-pointer" />
+    <div
+      onClick={toDetail}
+      style={{ backgroundImage: `url(${imgUrl})` }}
+      className="w-full h-0 pb-1/3 bg-blue-200 bg-cover cursor-pointer"
+    />
   )
 }
 
@@ -65,7 +69,9 @@ function MySlider() {
       transitionDuration={500}
       removeArrowOnDeviceType={['tablet', 'mobile']}
     >
-      {headImg.map((item) => <SliderItem url={item.picture} id={item.id} />)}
+      {headImg.map((item) => (
+        <SliderItem key={item.id} url={item.picture} id={item.id} />
+      ))}
     </Carousel>
   )
 }

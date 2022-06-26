@@ -1,9 +1,9 @@
 import DialogTitle from '@mui/material/DialogTitle'
 import Dialog from '@mui/material/Dialog'
-import { TextField, Autocomplete } from '@mui/material'
+import { TextField } from '@mui/material'
 import { useEffect, useState } from 'react'
 // import GlobalAlert from './GlobalAlert'
-import toast, { Toaster } from 'react-hot-toast'
+import toast from 'react-hot-toast'
 import * as yup from 'yup'
 import { useRecoilState } from 'recoil'
 import { Form, Formik } from 'formik'
@@ -31,7 +31,7 @@ function LoginModal(props) {
       .required('请输入您的密码')
       .matches(
         /(?=.*([a-zA-Z].*))(?=.*[0-9].*)[a-zA-Z0-9-*/+.~!@#$%^&*()]{8,20}$/,
-        '密码必须包含字母和数字，且长度为8-20位'
+        '密码必须包含字母和数字，且长度为8-20位',
       ),
     confirmPassword: yup
       .string()
@@ -42,9 +42,7 @@ function LoginModal(props) {
 
   const loginValidationSchema = yup.object({
     username: yup.string('请输入您的姓名').required('请输入您的姓名'),
-    password: yup
-      .string()
-      .required('请输入您的密码'),
+    password: yup.string().required('请输入您的密码'),
     captcha: yup.string().required('请输入您的验证码'),
   })
 
@@ -99,206 +97,197 @@ function LoginModal(props) {
   return (
     <Dialog disableEnforceFocus fullWidth open={loginModal.isShow} onClose={() => onClose()}>
       <DialogTitle>{loginModal.type === 'register' ? '用户注册' : '用户登录'}</DialogTitle>
-      {loginModal.type === 'register'
-        ? (
-          <Formik
-            validationSchema={registerValidationSchema}
-            onSubmit={handleRegister}
-            initialValues={{
-              username: '',
-              email: '',
-              phone: '',
-              password: '',
-              confirmPassword: '',
-            }}
-          >
-            {({
-              handleChange,
-              errors,
-            }) => (
-              <Form className="flex flex-col px-4 py-4 space-y-4">
+      {loginModal.type === 'register' ? (
+        <Formik
+          validationSchema={registerValidationSchema}
+          onSubmit={handleRegister}
+          initialValues={{
+            username: '',
+            email: '',
+            phone: '',
+            password: '',
+            confirmPassword: '',
+          }}
+        >
+          {({ handleChange, errors }) => (
+            <Form className="flex flex-col px-4 py-4 space-y-4">
+              <TextField
+                id="username"
+                name="username"
+                type="username"
+                // fullWidth
+                required
+                label="用户名"
+                // value={values.phone}
+                onChange={handleChange}
+                error={errors.username}
+                helperText={errors.username}
+              />
+              <TextField
+                name="password"
+                type="password"
+                label="密码"
+                required
+                // fullWidth
+                // value={values.email}
+                onChange={handleChange}
+                error={Boolean(errors.password)}
+                helperText={errors.password}
+                isInvalid={!!errors.password}
+              />
+              <TextField
+                name="confirmPassword"
+                type="password"
+                label="确认密码"
+                required
+                // fullWidth
+                // value={values.email}
+                onChange={handleChange}
+                error={Boolean(errors.confirmPassword)}
+                helperText={errors.confirmPassword}
+              />
+              <TextField
+                id="phone"
+                name="phone"
+                type="phone"
+                // fullWidth
+                required
+                label="手机号"
+                // value={values.phone}
+                onChange={handleChange}
+                error={Boolean(errors.phone)}
+                helperText={errors.phone}
+              />
+              <TextField
+                id="email"
+                name="email"
+                type="email"
+                // fullWidth
+                required
+                label="邮箱"
+                // value={values.phone}
+                onChange={handleChange}
+                error={Boolean(errors.email)}
+                helperText={errors.email}
+              />
+              <div className="flex space-x-2">
                 <TextField
-                  id="username"
-                  name="username"
-                  type="username"
-                  // fullWidth
-                  required
-                  label="用户名"
-                  // value={values.phone}
-                  onChange={handleChange}
-                  error={errors.username}
-                  helperText={errors.username}
-                />
-                <TextField
-                  name="password"
-                  type="password"
-                  label="密码"
-                  required
-                  // fullWidth
-                  // value={values.email}
-                  onChange={handleChange}
-                  error={Boolean(errors.password)}
-                  helperText={errors.password}
-                  isInvalid={!!errors.password}
-                />
-                <TextField
-                  name="confirmPassword"
-                  type="password"
-                  label="确认密码"
-                  required
-                  // fullWidth
-                  // value={values.email}
-                  onChange={handleChange}
-                  error={Boolean(errors.confirmPassword)}
-                  helperText={errors.confirmPassword}
-                />
-                <TextField
-                  id="phone"
-                  name="phone"
-                  type="phone"
-                  // fullWidth
-                  required
-                  label="手机号"
-                  // value={values.phone}
-                  onChange={handleChange}
-                  error={Boolean(errors.phone)}
-                  helperText={errors.phone}
-                />
-                <TextField
-                  id="email"
-                  name="email"
-                  type="email"
-                  // fullWidth
-                  required
-                  label="邮箱"
-                  // value={values.phone}
-                  onChange={handleChange}
-                  error={Boolean(errors.email)}
-                  helperText={errors.email}
-                />
-                <div className="flex space-x-2">
-                  <TextField
-                    name="captcha"
-                    type="captcha"
-                    label="验证码"
-                    required
-                    // fullWidth
-                    // value={values.email}
-                    onChange={handleChange}
-                    error={Boolean(errors.captcha)}
-                    helperText={errors.captcha}
-                    isInvalid={!!errors.captcha}
-                  />
-                  {/* eslint-disable */}
-                <img className='h-10' src={captchaImage} alt="验证码" onClick={() => refreshCaptchaID()} />
-                </div>
-                <div className="flex space-x-2">
-                  <button type="submit" className="bg-black text-white px-4 py-2 cursor-pointer">
-                    立即注册
-                  </button>
-
-                  {loginModal.type === 'login' && (
-                    <a
-                      className="text-sm text-blue-500 hover:underline mt-auto cursor-pointer"
-                      onClick={() => setLoginModal({ isShow: true, type: 'register' })}
-                    >
-                      还没有账号?，立即注册
-                    </a>
-                  )}
-                  {loginModal.type === 'register' && (
-                    <a
-                      className="text-sm text-blue-500 hover:underline mt-auto cursor-pointer"
-                      onClick={() => setLoginModal({ isShow: true, type: 'login' })}
-                    >
-                      已有账号?，立即登录
-                    </a>
-                  )}
-                </div>
-              </Form>
-            )}
-          </Formik>
-        )
-        : (
-          <Formik
-            validationSchema={loginValidationSchema}
-            onSubmit={handleLogin}
-            initialValues={{
-              username: '',
-              password: '',
-            }}
-          >
-            {({
-              handleChange,
-              errors,
-            }) => (
-              <Form className="flex flex-col px-4 py-4 space-y-4">
-                <TextField
-                  id="username"
-                  name="username"
-                  type="username"
-                  // fullWidth
-                  required
-                  label="用户名"
-                  // value={values.phone}
-                  onChange={handleChange}
-                  error={errors.username}
-                  helperText={errors.username}
-                />
-                <TextField
-                  name="password"
-                  type="password"
-                  label="密码"
+                  name="captcha"
+                  type="captcha"
+                  label="验证码"
                   required
                   // fullWidth
                   // value={values.email}
                   onChange={handleChange}
-                  error={Boolean(errors.password)}
-                  helperText={errors.password}
-                  isInvalid={!!errors.password}
+                  error={Boolean(errors.captcha)}
+                  helperText={errors.captcha}
+                  isInvalid={!!errors.captcha}
                 />
-                <div className="flex space-x-2">
-                  <TextField
-                    name="captcha"
-                    type="captcha"
-                    label="验证码"
-                    required
-                    // fullWidth
-                    // value={values.email}
-                    onChange={handleChange}
-                    error={Boolean(errors.captcha)}
-                    helperText={errors.captcha}
-                    isInvalid={!!errors.captcha}
-                  />
-                  {/* eslint-disable */}
-                <img className='h-10' src={captchaImage} alt="验证码" onClick={() => refreshCaptchaID()} />
-                </div>
-                <div className="flex space-x-2">
-                  <button type="submit" className="bg-black text-white px-4 py-2 cursor-pointer">
-                    立即登录
-                  </button>
+                {/* eslint-disable */}
+                <img className="h-10" src={captchaImage} alt="验证码" onClick={() => refreshCaptchaID()} />
+              </div>
+              <div className="flex space-x-2">
+                <button type="submit" className="bg-black text-white px-4 py-2 cursor-pointer">
+                  立即注册
+                </button>
 
-                  {loginModal.type === 'login' && (
-                    <a
-                      className="text-sm text-blue-500 hover:underline mt-auto cursor-pointer"
-                      onClick={() => setLoginModal({ isShow: true, type: 'register' })}
-                    >
-                      还没有账号?，立即注册
-                    </a>
-                  )}
-                  {loginModal.type === 'register' && (
-                    <a
-                      className="text-sm text-blue-500 hover:underline mt-auto cursor-pointer"
-                      onClick={() => setLoginModal({ isShow: true, type: 'login' })}
-                    >
-                      已有账号?，立即登录
-                    </a>
-                  )}
-                </div>
-              </Form>
-            )}
-          </Formik>
-        )}
+                {loginModal.type === 'login' && (
+                  <a
+                    className="text-sm text-blue-500 hover:underline mt-auto cursor-pointer"
+                    onClick={() => setLoginModal({ isShow: true, type: 'register' })}
+                  >
+                    还没有账号?，立即注册
+                  </a>
+                )}
+                {loginModal.type === 'register' && (
+                  <a
+                    className="text-sm text-blue-500 hover:underline mt-auto cursor-pointer"
+                    onClick={() => setLoginModal({ isShow: true, type: 'login' })}
+                  >
+                    已有账号?，立即登录
+                  </a>
+                )}
+              </div>
+            </Form>
+          )}
+        </Formik>
+      ) : (
+        <Formik
+          validationSchema={loginValidationSchema}
+          onSubmit={handleLogin}
+          initialValues={{
+            username: '',
+            password: '',
+          }}
+        >
+          {({ handleChange, errors }) => (
+            <Form className="flex flex-col px-4 py-4 space-y-4">
+              <TextField
+                id="username"
+                name="username"
+                type="username"
+                // fullWidth
+                required
+                label="用户名"
+                // value={values.phone}
+                onChange={handleChange}
+                error={errors.username}
+                helperText={errors.username}
+              />
+              <TextField
+                name="password"
+                type="password"
+                label="密码"
+                required
+                // fullWidth
+                // value={values.email}
+                onChange={handleChange}
+                error={Boolean(errors.password)}
+                helperText={errors.password}
+                isInvalid={!!errors.password}
+              />
+              <div className="flex space-x-2">
+                <TextField
+                  name="captcha"
+                  type="captcha"
+                  label="验证码"
+                  required
+                  // fullWidth
+                  // value={values.email}
+                  onChange={handleChange}
+                  error={Boolean(errors.captcha)}
+                  helperText={errors.captcha}
+                  isInvalid={!!errors.captcha}
+                />
+                {/* eslint-disable */}
+                <img className="h-10" src={captchaImage} alt="验证码" onClick={() => refreshCaptchaID()} />
+              </div>
+              <div className="flex space-x-2">
+                <button type="submit" className="bg-black text-white px-4 py-2 cursor-pointer">
+                  立即登录
+                </button>
 
+                {loginModal.type === 'login' && (
+                  <a
+                    className="text-sm text-blue-500 hover:underline mt-auto cursor-pointer"
+                    onClick={() => setLoginModal({ isShow: true, type: 'register' })}
+                  >
+                    还没有账号?，立即注册
+                  </a>
+                )}
+                {loginModal.type === 'register' && (
+                  <a
+                    className="text-sm text-blue-500 hover:underline mt-auto cursor-pointer"
+                    onClick={() => setLoginModal({ isShow: true, type: 'login' })}
+                  >
+                    已有账号?，立即登录
+                  </a>
+                )}
+              </div>
+            </Form>
+          )}
+        </Formik>
+      )}
     </Dialog>
   )
 }

@@ -5386,6 +5386,11 @@ eslint-config-airbnb@19.0.4:
     object.assign "^4.1.2"
     object.entries "^1.1.5"
 
+eslint-config-alloy@^4.5.1:
+  version "4.5.1"
+  resolved "https://registry.npmmirror.com/eslint-config-alloy/-/eslint-config-alloy-4.5.1.tgz#b93688102b76deb863824351fa861941f74dd826"
+  integrity sha512-rdHaoAyOf4scccQX3bxqmUa85+cvyhPvijqobsZT+Cdt0HGAbhGby3lghmotGOYHACRTtn7gs+oM5pnnmPkXyw==
+
 eslint-config-react-app@^6.0.0:
   version "6.0.0"
   resolved "https://registry.npmmirror.com/eslint-config-react-app/-/eslint-config-react-app-6.0.0.tgz#ccff9fc8e36b322902844cbd79197982be355a0e"
