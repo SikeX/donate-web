@@ -8,10 +8,10 @@ const getAllItem = async (params) => {
   return result.data
 }
 
-const getItemsByClassId = async (id) => {
+const queryByUsername = async (username) => {
   const result = await axios.get(
-    `${baseUrl}/user/protocolItem/queryByClassId`,
-    { params: { classId: id } }
+    `${baseUrl}/protocolItem/protocolItem/queryByUsername`,
+    { params: { username } }
   )
   return result.data
 }
@@ -24,33 +24,17 @@ const getItemById = async (id) => {
   return result.data
 }
 
-const getAll = async () => {
-  const result = await axios.get(baseUrl)
+const getOutcome = async (itemId) => {
+  const result = await axios.get(
+    `${baseUrl}/user/protocolItem/listProtocolOutcomeByItemId`,
+    { params: { itemId } }
+  )
   return result.data
-}
-
-const getTodoList = async (todo) => {
-  const result = await axios.get(`${baseUrl}/${todo}`)
-  return result.data
-}
-
-const postTaskList = async (task) => {
-  const result = axios.post(`${baseUrl}/Tasks`, task)
-  return result
-}
-
-const postTodo = async (taskName, todo) => {
-  const result = axios.post(`${baseUrl}/Tasks/${taskName}`, todo)
-  return result
-}
-
-const deleteTodo = async (taskName, todoName) => {
-  const result = axios.delete(`${baseUrl}/Tasks/${taskName}`, { data: { name: todoName } })
-  return result
 }
 
 export default {
   getAllItem,
-  getItemsByClassId,
+  queryByUsername,
   getItemById,
+  getOutcome,
 }

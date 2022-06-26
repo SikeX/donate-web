@@ -1,5 +1,8 @@
 // craco.config.js
+const fastRefreshCracoPlugin = require('craco-fast-refresh')
+
 module.exports = {
+  plugins: [{ plugin: fastRefreshCracoPlugin }],
   style: {
     postcss: {
       plugins: [

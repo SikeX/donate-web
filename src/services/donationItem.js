@@ -8,6 +8,11 @@ const getAllItem = async (params) => {
   return result.data
 }
 
+const getBannerList = async () => {
+  const result = await axios.get(`${baseUrl}/user/donationBanner/list`)
+  return result.data
+}
+
 const searchItems = async (keyword) => {
   const result = await axios.get(`${baseUrl}/user/donationItem/search`, { params: { keyword } })
   return result.data
@@ -37,14 +42,12 @@ const getOptionById = async (id) => {
   return result.data
 }
 
-const postTodo = async (taskName, todo) => {
-  const result = axios.post(`${baseUrl}/Tasks/${taskName}`, todo)
-  return result
-}
-
-const deleteTodo = async (taskName, todoName) => {
-  const result = axios.delete(`${baseUrl}/Tasks/${taskName}`, { data: { name: todoName } })
-  return result
+const getSupportNum = async (itemId) => {
+  const result = await axios.get(
+    `${baseUrl}/user/donationItem/getSupportNum`,
+    { params: { itemId } }
+  )
+  return result.data
 }
 
 export default {
@@ -53,4 +56,6 @@ export default {
   getItemById,
   getOptionById,
   searchItems,
+  getSupportNum,
+  getBannerList,
 }

@@ -2,7 +2,7 @@ import Pagination from '@mui/material/Pagination'
 import { useState, useEffect } from 'react'
 import Skeleton from '@mui/material/Skeleton'
 import { Item } from 'react-grid-carousel'
-import { useLocation, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { useRecoilState } from 'recoil'
 import Head from '../components/Head'
 import Nav from '../components/Nav'
@@ -13,12 +13,9 @@ import donationItem from '../services/donationItem'
 import DonateItem from '../components/DonateItem'
 import donationClass from '../services/donationClass'
 import { searchParamsState } from '../state/state'
+import { useQuery } from '../utils/router'
 
 function DonateChoose() {
-  function useQuery() {
-    return new URLSearchParams(useLocation().search)
-  }
-
   const classId = useQuery().get('classId')
   const status = useQuery().get('status')
   const pageNo = useQuery().get('pageNo')

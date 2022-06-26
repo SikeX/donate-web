@@ -1,25 +1,23 @@
 import { useEffect, useState } from 'react'
 import Carousel from 'react-multi-carousel'
 import 'react-multi-carousel/lib/styles.css'
+import { useHistory } from 'react-router-dom'
 import { FILE_BASE_URL } from '../services/api'
 import donationItem from '../services/donationItem'
 
-function SliderItem({ url }) {
+function SliderItem({ url, id }) {
   // const color = 'bg-red-' + name + '00'
-
-  const headStyle = 'w-full mx-auto h-80 md:h-96 text-white text-2xl'
 
   const imgUrl = FILE_BASE_URL + url.split(',')[0]
 
-  const heightStyle = {
-    height: 0,
-    paddingBottom: '40%',
+  let history = useHistory()
+
+  const toDetail = () => {
+    history.push(`/detail/${id}`)
   }
 
   return (
-    <div className={headStyle} style={heightStyle}>
-      <img src={imgUrl} alt="banner" />
-    </div>
+    <div onClick={toDetail} style={{ backgroundImage: `url(${imgUrl})` }} className="w-full h-0 pb-1/3 bg-blue-200 bg-cover cursor-pointer" />
   )
 }
 
@@ -27,10 +25,10 @@ function MySlider() {
   const [headImg, setHeadImg] = useState([])
 
   useEffect(() => {
-    donationItem.getAllItem().then((res) => {
+    donationItem.getBannerList().then((res) => {
       if (res.success) {
-        console.log(res.result.records)
-        setHeadImg(res.result.records)
+        console.log(res.result)
+        setHeadImg(res.result)
       }
     })
   }, [])
@@ -67,7 +65,7 @@ function MySlider() {
       transitionDuration={500}
       removeArrowOnDeviceType={['tablet', 'mobile']}
     >
-      {headImg.map((item) => <SliderItem url={item.picture} />)}
+      {headImg.map((item) => <SliderItem url={item.picture} id={item.id} />)}
     </Carousel>
   )
 }

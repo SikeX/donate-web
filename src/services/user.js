@@ -23,9 +23,15 @@ const queryByUserId = async (userId) => {
   return result.data
 }
 
+const getCaptcha = async (captchaId) => {
+  const result = await axios.get(`${baseUrl}/user/randomImage/${captchaId}`)
+  return result.data
+}
+
 export default {
   register,
   login,
   addAddress,
   queryByUserId,
+  getCaptcha,
 }

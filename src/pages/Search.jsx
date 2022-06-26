@@ -113,7 +113,7 @@ function Search() {
                       {row.itemName}
                     </StyledTableCell>
                     <StyledTableCell align="right">{row.optionId.length < 10 ? '任意捐' : `${row.optionId_dictText} X ${row.piece}`}</StyledTableCell>
-                    <StyledTableCell align="right">{row.money}</StyledTableCell>
+                    <StyledTableCell align="right">{parseFloat(row.money / 100)}</StyledTableCell>
                     <StyledTableCell align="right">{row.createTime}</StyledTableCell>
                   </StyledTableRow>
                 ))}

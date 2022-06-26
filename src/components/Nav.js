@@ -1,15 +1,24 @@
 import { useState, useEffect } from 'react'
-import toast, { Toaster } from 'react-hot-toast'
+import toast from 'react-hot-toast'
 import { FaSearch, FaCaretDown } from 'react-icons/fa'
 import { Link, useHistory } from 'react-router-dom'
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
+import { useRecoilState } from 'recoil'
+import {
+  Menu,
+  MenuItem,
+  IconButton,
+  Divider,
+  Tooltip,
+} from '@material-ui/core'
+import { usePopupState, bindTrigger, bindMenu } from 'material-ui-popup-state/hooks'
+import { AccountCircle } from '@material-ui/icons'
 import donationClass from '../services/donationClass'
 import donationItem from '../services/donationItem'
-import protocolClass from '../services/protocolClass'
 import { isLoginState, loginModalState } from '../state/state'
 import LoginModal from './LoginModal'
+import logo from '../assets/heu-logo.png'
 
-function MenuItem({ id, name }) {
+function MyMenuItem({ id, name }) {
   let history = useHistory()
 
   const toDonate = () => {
@@ -29,11 +38,6 @@ function NavItem({ title, menu }) {
       setAllClass(res.result.records)
     })
   }, [])
-  useEffect(() => {
-    protocolClass.getAllClass().then((res) => {
-      setAllClass(res.result.records)
-    })
-  }, [])
 
   return (
     <div className="menu hidden lg:inline-block relative my-auto px-1">
@@ -46,8 +50,7 @@ function NavItem({ title, menu }) {
       {menu
                 && (
                   <div className="menuItem absolute hidden left-1 top-6 bg-white border shadow-md rounded-md min-w-full py-1 cursor-pointer" style={{ zIndex: 10002 }}>
-                    {title === '正在众筹' && allClass.map((item) => <MenuItem id={item.id} name={item.name} />)}
-                    {title === '协议捐赠' && allClass.map((item) => <MenuItem id={item.id} name={item.name} />)}
+                    {title === '正在众筹' && allClass.map((item) => <MyMenuItem key={item.id} id={item.id} name={item.name} />)}
                   </div>
                 )}
     </div>
@@ -59,7 +62,9 @@ function Nav() {
   const [searchValue, setSearchValue] = useState('')
   const [searchResult, setSearchResult] = useState([])
   const [isLogin, setIsLogin] = useRecoilState(isLoginState)
-  const [loginModal, setLoginModal] = useRecoilState(loginModalState)
+  const [loginModalShow, setLoginModal] = useRecoilState(loginModalState)
+
+  const loginPopupState = usePopupState({ variant: 'popover', popupId: 'loginMenu' })
 
   let history = useHistory()
 
@@ -73,7 +78,6 @@ function Nav() {
   }
 
   const toDetail = (id) => {
-    console.log('jump to', id)
     history.push(`/detail/${id}`)
   }
 
@@ -100,15 +104,29 @@ function Nav() {
     setSearchModalDisplay('hidden')
   }
 
+  const handleLogin = () => {
+    setLoginModal({ isShow: true, type: 'login' })
+    loginPopupState.close()
+  }
+
+  const handleRegister = () => {
+    setLoginModal({ isShow: true, type: 'register' })
+    loginPopupState.close()
+  }
+
   return (
     <div className="flex shadow-sm w-full px-2 py-5">
-      <Toaster />
       <LoginModal
         onClose={() => {
           setLoginModal({ isShow: false, type: 'login' })
         }}
       />
-      <div className="hidden lg:block text-blue-500 text-2xl font-bold my-auto px-2">校友众筹平台</div>
+      <div className="hidden lg:flex text-blue-500 text-2xl font-bold my-auto px-2">
+        <img className="w-10 h-10" src={logo} alt="logo" />
+        <div className="my-auto px-2 cursor-pointer" onClick={() => history.push('/')}>
+          哈尔滨工程大学捐赠平台
+        </div>
+      </div>
       <Link className="my-auto" to="/">
         <NavItem title="首页" menu={false} />
       </Link>
@@ -122,7 +140,7 @@ function Nav() {
       </Link>
 
       <Link className="my-auto" to="/protocol">
-        {isLogin && <NavItem title="协议捐赠" menu />}
+        {isLogin && JSON.parse(localStorage.getItem('userInfo')).roleId === '1473253380001157121' && <NavItem title="我的协议捐赠" />}
       </Link>
 
       <div className="hidden md:inline-block md:flex-grow" />
@@ -141,9 +159,20 @@ function Nav() {
           )}
       </form>
       <div className="flex space-x-2 my-auto px-3 cursor-pointer">
-        {!isLogin && <div onClick={() => setLoginModal({ isShow: true, type: 'register' })}>校友注册</div>}
-        {!isLogin && <div onClick={() => setLoginModal({ isShow: true, type: 'login' })}>登录</div>}
-        {isLogin && <div onClick={logout}>登出</div>}
+        <IconButton color="inherit" {...bindTrigger(loginPopupState)}>
+          <AccountCircle />
+        </IconButton>
+        <Menu
+          {...bindMenu(loginPopupState)}
+          getContentAnchorEl={null}
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+          transformOrigin={{ vertical: 'top', horizontal: 'left' }}
+        >
+          {!isLogin && <MenuItem onClick={handleRegister}>注册</MenuItem>}
+          {!isLogin && <MenuItem onClick={handleLogin}>登录</MenuItem>}
+          <Divider />
+          {isLogin && <MenuItem onClick={logout}>登出</MenuItem>}
+        </Menu>
       </div>
 
     </div>

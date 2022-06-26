@@ -11,10 +11,10 @@ function Home() {
   const [donationClassList, setDonationClassList] = useState([])
 
   useEffect(() => {
-    donationClass.getAllClass().then((res) => {
+    donationClass.getHomeClass().then((res) => {
       console.log(res)
       if (res.success) {
-        setDonationClassList(res.result.records)
+        setDonationClassList(res.result)
       }
     })
   }, [])

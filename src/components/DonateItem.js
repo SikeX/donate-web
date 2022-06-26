@@ -1,6 +1,8 @@
-import { useState } from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import toast from 'react-hot-toast'
+import { useHistory } from 'react-router-dom'
 import { FILE_BASE_URL } from '../services/api'
+import donationItem from '../services/donationItem'
 import StatusBar from './StatusBar'
 
 function DonateItem(props) {
@@ -12,12 +14,10 @@ function DonateItem(props) {
 
   const imgUrl = FILE_BASE_URL + picture
 
-  // console.log(title)
-
-  const [raised, setRaised] = useState(parseInt(raisedMoney))
-  const [target, setTarget] = useState(parseInt(targetMoney))
+  // const [raised, setRaised] = useState(parseFloat(raisedMoney))
+  // const [target, setTarget] = useState(parseFloat(targetMoney))
   const [leftDay, setLeftDay] = useState(30)
-  const [support, setSupport] = useState(100)
+  const [support, setSupport] = useState(0)
 
   const defaultStyle = 'flex lg:flex-col lg:flex-shrink-0 lg:flex-shrink shadow-lg hover:shadow-2xl rounded-lg transition transform hover:-translate-y-1 cursor-pointer w-full'
 
@@ -26,6 +26,16 @@ function DonateItem(props) {
   const showDetail = (name) => {
     history.push({ pathname: `/detail/${id}`, params: { id } })
   }
+
+  useEffect(() => {
+    donationItem.getSupportNum(id).then((res) => {
+      if (res.success) {
+        setSupport(res.result)
+      } else {
+        toast.error(res.message)
+      }
+    })
+  }, [id])
 
   return (
     <div className={test}>
@@ -42,7 +52,7 @@ function DonateItem(props) {
           </div>
           {/* </Link> */}
         </div>
-        <StatusBar raised={raised} target={target} leftDay={leftDay} support={support} />
+        <StatusBar raised={parseFloat(raisedMoney / 100)} target={parseFloat(targetMoney / 100)} leftDay={leftDay} support={support} />
       </div>
     </div>
   )

@@ -2,12 +2,20 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
 import { RecoilRoot } from 'recoil'
+import { Toaster } from 'react-hot-toast'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
+
+if (process.env.NODE_ENV === 'production') {
+  console.log = () => {}
+  console.error = () => {}
+  console.debug = () => {}
+}
 
 ReactDOM.render(
   <React.StrictMode>
     <RecoilRoot>
+      <Toaster />
       <App />
     </RecoilRoot>
   </React.StrictMode>,

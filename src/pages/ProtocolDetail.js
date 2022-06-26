@@ -7,7 +7,7 @@ function ProtocolDetail(props) {
   const { id } = props.match.params
 
   return (
-    <div className="w-full flex flex-col">
+    <div className="w-full min-h-screen flex flex-col">
       <Head />
       <Nav />
       <ProtocolStatus id={id} />

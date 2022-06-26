@@ -8,6 +8,7 @@ import { FILE_BASE_URL } from '../services/api'
 import TabPanel from './UI/TabPanel'
 import StatusBar from './StatusBar'
 import protocolItem from '../services/protocolItem'
+import ProtocalOutcome from './ProtocalOutcome'
 
 function Item({ name }) {
   return (
@@ -35,10 +36,6 @@ function ProtocolStatus({ id, title }) {
   const [donateDone, setDonateDone] = useState(false)
   const [itemDetail, setItemDetail] = useState({})
 
-  console.log(itemDetail)
-
-  let history = useHistory()
-
   useEffect(() => {
     protocolItem.getItemById(id).then((res) => {
       if (res.success) {
@@ -65,7 +62,7 @@ function ProtocolStatus({ id, title }) {
           <div className="text-sm text-gray-500">结束时间：{itemDetail.endTime}</div>
 
           {!donateDone && <Protocol id={id} />}
-          <div className="text-gray-500 text-sm">{donateDone ? '项目已于2021-04-23 18:00结束众筹，感谢您的关注！' : '感谢您的大力支持，学校会认真负责地用好每一笔捐赠！'}</div>
+          <div className="text-gray-500 text-sm">{Date.now() > Date.parse(itemDetail.endTime) ? `项目已于${itemDetail.endTime}结束众筹，感谢您的关注！` : '感谢您的大力支持，学校会认真负责地用好每一笔捐赠！'}</div>
         </div>
       </div>
 
@@ -74,23 +71,11 @@ function ProtocolStatus({ id, title }) {
           <Box sx={{ width: '90%' }}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
               <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-                <Tab sx={{ fontSize: 16, fontWeight: 'bold' }} label="捐赠详情" />
-                <Tab sx={{ fontSize: 16, fontWeight: 'bold' }} label="捐赠故事" />
-                <Tab sx={{ fontSize: 16, fontWeight: 'bold' }} label="常见问题" />
                 <Tab sx={{ fontSize: 16, fontWeight: 'bold' }} label="支出情况" />
               </Tabs>
             </Box>
             <TabPanel value={value} index={0}>
-              <div dangerouslySetInnerHTML={{ __html: itemDetail.detail }} />
-            </TabPanel>
-            <TabPanel value={value} index={1}>
-              <div dangerouslySetInnerHTML={{ __html: itemDetail.story }} />
-            </TabPanel>
-            <TabPanel value={value} index={2}>
-              <div dangerouslySetInnerHTML={{ __html: itemDetail.question }} />
-            </TabPanel>
-            <TabPanel value={value} index={3}>
-              <div dangerouslySetInnerHTML={{ __html: itemDetail.cost }} />
+              <ProtocalOutcome id={id} />
             </TabPanel>
           </Box>
         </div>

@@ -8,6 +8,8 @@
     "@emotion/react": "^11.7.0",
     "@emotion/styled": "^11.6.0",
     "@geist-ui/react": "^2.2.0",
+    "@material-ui/core": "5.0.0-alpha.2",
+    "@material-ui/icons": "^4.11.3",
     "@mui/icons-material": "^5.8.2",
     "@mui/material": "^5.2.3",
     "@szhsin/react-menu": "^2.0.0",
@@ -19,20 +21,20 @@
     "axios": "^0.24.0",
     "formik": "^2.2.9",
     "formik-material-ui": "^4.0.0-alpha.2",
+    "material-ui-popup-state": "^3.1.1",
     "postcss": "^7.0.36",
     "qrcode.react": "^3.0.2",
     "qs": "^6.10.3",
     "react": "^17.0.2",
     "react-countdown": "^2.3.2",
     "react-dom": "^17.0.2",
-    "react-fast-marquee": "^1.3.1",
+    "react-fast-marquee": "^1.3.2",
     "react-grid-carousel": "^1.0.1",
     "react-hot-toast": "^2.2.0",
     "react-icons": "^4.2.0",
     "react-multi-carousel": "^2.6.5",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
-    "react-simple-captcha": "^8.2.0",
     "recoil": "^0.7.3-alpha.2",
     "run": "^1.4.0",
     "serve": "^13.0.2",
@@ -43,7 +45,7 @@
   },
   "scripts": {
     "start": "PORT=3006 REACT_APP_ENV=dev craco start FAST_REFRESH=true",
-    "build": "PORT=3007 REACT_APP_ENV=production craco build",
+    "build": "PORT=3007 GENERATE_SOURCEMAP=false REACT_APP_ENV=production craco build",
     "test": "craco test",
     "eject": "react-scripts eject"
   },
@@ -62,16 +64,23 @@
   "devDependencies": {
     "@babel/preset-react": "^7.16.7",
     "commitizen": "^4.2.4",
+    "craco-fast-refresh": "^1.1.0",
+    "customize-cra": "^1.0.0",
     "cz-conventional-changelog": "^3.3.0",
     "eslint-config-airbnb": "19.0.4",
     "eslint-plugin-import": "^2.25.3",
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-react": "^7.28.0",
-    "eslint-plugin-react-hooks": "^4.3.0"
+    "eslint-plugin-react-hooks": "^4.3.0",
+    "react-app-rewired": "^2.2.1",
+    "react-error-overlay": "^6.0.9"
   },
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
+  },
+  "resolutions": {
+    "react-error-overlay": "6.0.9"
   }
 }

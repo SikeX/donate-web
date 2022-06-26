@@ -9,8 +9,8 @@ const postOrder = async (orderInfo) => {
   return result.data
 }
 
-const updateOrder = async (orderInfo) => {
-  const result = await axios.put(`${baseUrl}/user/donationOrder/edit`, orderInfo)
+const updateOrder = async (orderNo) => {
+  const result = await axios.get(`${baseUrl}/user/donationOrder/cancelOrder`, { params: { orderNo } })
   return result.data
 }
 
@@ -29,6 +29,11 @@ const getOrdersByPhone = async (phone) => {
   return result.data
 }
 
+const getThanksList = async () => {
+  const result = await axios.get(`${baseUrl}/user/donationOrder/getThanksList`)
+  return result.data
+}
+
 const postAlipay = async (orderInfo) => {
   const result = await axios.post(`${baseUrl}/alipay/create`, qs.stringify(orderInfo), {
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8' },
@@ -41,6 +46,16 @@ const postWxPay = async (wxOrderInfo) => {
   return result.data
 }
 
+const checkStatus = async (orderNo) => {
+  const result = await axios.get(`${baseUrl}/alipay/checkStatus`, { params: { orderNo } })
+  return result.data
+}
+
+const checkWxStatus = async (orderNo) => {
+  const result = await axios.get(`${baseUrl}/user/checkWxStatus`, { params: { orderNo } })
+  return result.data
+}
+
 export default {
   postOrder,
   getOrder,
@@ -49,4 +64,7 @@ export default {
   postWxPay,
   getOrdersByItemId,
   getOrdersByPhone,
+  checkStatus,
+  checkWxStatus,
+  getThanksList,
 }

@@ -3,8 +3,7 @@ import { toMoney } from '../utils/dataProcess'
 function StatusBar({
   raised, target, leftDay, support,
 }) {
-  // eslint-disable-next-line no-mixed-operators
-  const rate = raised / target * 100
+  const rate = raised > target ? 100 : (raised / target) * 100
 
   // console.log('rate is', rate)
 

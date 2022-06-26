@@ -8,18 +8,19 @@ import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
 import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
-import order from '../services/order'
+import protocolItem from '../services/protocolItem'
 
-function DonationRecord(props) {
+function ProtocalOutcome(props) {
   const { id } = props
-  const [recordList, setRecordList] = useState([])
+
+  const [outcomeList, setOutcomeList] = useState([])
 
   useEffect(() => {
-    order.getOrdersByItemId(id).then((res) => {
+    protocolItem.getOutcome(id).then((res) => {
       if (res.success) {
-        setRecordList(res.result.records)
+        setOutcomeList(res.result.records)
       } else {
-        toast.error(res.message)
+        toast(res.message)
       }
     })
   }, [])
@@ -50,21 +51,19 @@ function DonationRecord(props) {
         <Table sx={{ minWidth: 700 }} aria-label="customized table">
           <TableHead>
             <TableRow>
-              <StyledTableCell>捐赠人</StyledTableCell>
-              <StyledTableCell align="right">捐赠选项</StyledTableCell>
-              <StyledTableCell align="right">捐赠金额&nbsp;(元)</StyledTableCell>
-              <StyledTableCell align="right">捐赠时间&nbsp;</StyledTableCell>
+              <StyledTableCell>支出类别</StyledTableCell>
+              <StyledTableCell align="right">支出详情&nbsp;</StyledTableCell>
+              <StyledTableCell align="right">支出金额&nbsp;(元)</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {recordList.map((row) => (
+            {outcomeList.map((row) => (
               <StyledTableRow key={row.name}>
                 <StyledTableCell component="th" scope="row">
-                  {row.name}
+                  {row.reimburseCategory_dictText}
                 </StyledTableCell>
-                <StyledTableCell align="right">{row.optionId.length < 10 ? '任意捐' : `${row.optionId_dictText} X ${row.piece}`}</StyledTableCell>
+                <StyledTableCell align="right">{row.detail}</StyledTableCell>
                 <StyledTableCell align="right">{parseFloat(row.money / 100)}</StyledTableCell>
-                <StyledTableCell align="right">{row.createTime}</StyledTableCell>
               </StyledTableRow>
             ))}
           </TableBody>
@@ -74,4 +73,4 @@ function DonationRecord(props) {
   )
 }
 
-export default DonationRecord
+export default ProtocalOutcome

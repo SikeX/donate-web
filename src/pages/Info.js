@@ -1,16 +1,13 @@
 import Button from '@mui/material/Button'
 import FormLabel from '@mui/material/FormLabel'
 import {
-  loadCaptchaEnginge, LoadCanvasTemplate, LoadCanvasTemplateNoReload, validateCaptcha
-} from 'react-simple-captcha'
-import {
   React, useEffect, useState,
 } from 'react'
 import { Formik, Form } from 'formik'
 import * as yup from 'yup'
 import { TextField, Autocomplete } from '@mui/material'
 import { useHistory, useParams } from 'react-router-dom'
-import toast, { Toaster } from 'react-hot-toast'
+import toast from 'react-hot-toast'
 import donationItem from '../services/donationItem'
 import { FILE_BASE_URL } from '../services/api'
 import dict from '../services/dict'
@@ -19,14 +16,18 @@ import Head from '../components/Head'
 import Footer from '../components/Footer'
 import FormikRadio from '../components/UI/FormikRadio'
 import order from '../services/order'
+import user from '../services/user'
 
-function Info(props) {
+function Info() {
   console.log(useParams())
   const { itemId, optionId, number } = useParams()
 
   const [item, setItem] = useState({})
   const [optionMoney, setOptionMoney] = useState()
+  const [captchaId, setCaptchaId] = useState(Date.now() + Math.random())
   const [userInfo, setUserInfo] = useState(JSON.parse(localStorage.getItem('userInfo')))
+  const [captchaImage, setCaptchaImage] = useState('')
+  const [captchaCorrect, setCaptchaCorrect] = useState(true)
 
   const [depatDict, setDepatDict] = useState([])
 
@@ -65,6 +66,10 @@ function Info(props) {
     { label: '否', value: 'no' }
   ]
 
+  const refreshCaptchaID = () => {
+    setCaptchaId(Date.now() + Math.random())
+  }
+
   useEffect(() => {
     donationItem.getItemById(itemId).then((res) => {
       console.log(res.result)
@@ -76,6 +81,16 @@ function Info(props) {
       }
     })
   }, [])
+
+  useEffect(() => {
+    user.getCaptcha(captchaId).then((res) => {
+      if (res.success) {
+        setCaptchaImage(res.result)
+      } else {
+        toast.error(res.message)
+      }
+    })
+  }, [captchaId, captchaCorrect])
 
   useEffect(() => {
     if (number !== undefined) {
@@ -97,10 +112,6 @@ function Info(props) {
   }, [itemId, optionId])
 
   useEffect(() => {
-    loadCaptchaEnginge(4, '#1e40af', 'white')
-  }, [])
-
-  useEffect(() => {
     dict.getDictItems({ dictCode: 'department' }).then((res) => {
       if (res.success) {
         setDepatDict(res.result)
@@ -110,40 +121,29 @@ function Info(props) {
 
   const handleSubmit = (e) => {
     console.log(e.capture)
-    console.log(validateCaptcha(e.capture))
-    if (validateCaptcha(e.capture) === false) {
-      toast.error('您输入的验证码不正确,请重新输入!(验证码大小写敏感)')
-    } else {
-      const orderInfo = {}
-      orderInfo.name = e.name
-      orderInfo.email = e.email
-      orderInfo.phone = e.phone
-      orderInfo.donationMsg = e.msg
-      orderInfo.department = e.department.value
-      orderInfo.isSchoolmate = e.isSchoolMate === 'yes' ? '1' : '0'
-      orderInfo.itemId = itemId
-      orderInfo.optionId = number ? optionId : '1'
-      orderInfo.money = number ? number * optionMoney : optionId
-      orderInfo.piece = number || 1
-      order.postOrder(orderInfo).then((res) => {
-        console.log(res)
-        if (res.success) {
-          toast.success('订单提交成功')
-          history.push(`/order/${res.result.orderNo}`)
-        }
-      })
-      // alert(JSON.stringify(e, null, 2))
-    }
+    const orderInfo = {}
+    orderInfo.name = e.name
+    orderInfo.email = e.email
+    orderInfo.phone = e.phone
+    orderInfo.donationMsg = e.msg
+    orderInfo.department = e.department.value
+    orderInfo.isSchoolmate = e.isSchoolMate === 'yes' ? '1' : '0'
+    orderInfo.itemId = itemId
+    orderInfo.optionId = number ? optionId : '1'
+    orderInfo.money = number ? number * optionMoney : optionId * 100
+    orderInfo.piece = number || 1
+    order.postOrder(orderInfo).then((res) => {
+      console.log(res)
+      if (res.success) {
+        toast.success('订单提交成功')
+        history.push(`/order/${res.result.orderNo}`)
+      }
+    })
+    // alert(JSON.stringify(e, null, 2))
   }
-
-  // const handleChange = (e, name) => {
-  //     console.log(name)
-  //     console.log(e.target.value)
-  // }
 
   return (
     <div className="w-full h-screen flex flex-col">
-      <Toaster />
       <Head />
       <Nav />
       <div className="w-full flex lg:flex-row flex-col flex-grow bg-gray-100 lg:px-16 lg:py-8 space-y-2 md:space-x-2">
@@ -154,7 +154,7 @@ function Info(props) {
             <div className="px-2 py-1">{item.name}</div>
             <div className="w-full h-px mx-2 my-2 bg-blue-800" />
             <div className="px-2 py-1 text-gray-500">总金额</div>
-            <div className="px-1 py-1 text-3xl font-bold ">￥{number ? number * optionMoney : optionId} CNY</div>
+            <div className="px-1 py-1 text-3xl font-bold ">￥{number ? parseFloat((number * optionMoney) / 100) : optionId} CNY</div>
           </div>
         </div>
         <div className="w-full lg:w-2/3">
@@ -217,18 +217,19 @@ function Info(props) {
                   />
                   <FormLabel component="legend">是否是校友</FormLabel>
                   <FormikRadio
+                    className="mx-2"
                     name="isSchoolMate"
+                    value={values.isSchoolMate}
                     options={isSchoolMateOptions}
                   />
                   <Autocomplete
-                    // id='department'
+                    className={`${values.isSchoolMate}` === 'no' ? 'hidden' : 'block'}
                     name="department"
                     options={depatDict}
                     getOptionLabel={(v) => v.text}
                     style={{ width: 300 }}
                     value={values.department}
                     onChange={(e, value) => {
-                      console.log(value)
                       setFieldValue(
                         'department',
                         value !== null ? value : initialValues.department
@@ -269,28 +270,27 @@ function Info(props) {
                                             <FormControlLabel value="male" control={<Radio />} label="否" />
                                         </RadioGroup>
                                     </FormControl> */}
-                  <div className="flex w-full">
-                    <div className="w-full" />
-                    <LoadCanvasTemplateNoReload backgroundColor="blue" />
-                  </div>
-                  <div className="flex w-full">
-                    <div className="w-full" />
+                  <div className="flex space-x-2">
                     <TextField
-                      name="capture"
-                      type="capture"
+                      name="captcha"
+                      type="captcha"
                       label="验证码"
-                      placeholder="(大小写敏感)"
-                      onChange={handleChange}
-                      id="outlined-size-small"
-                      size="normal"
                       required
+                      // fullWidth
+                      // value={values.email}
+                      onChange={handleChange}
+                      error={Boolean(errors.captcha)}
+                      helperText={errors.captcha}
+                      isInvalid={!!errors.captcha}
                     />
-                  </div>
+                    {/* eslint-disable */}
+                <img className='h-10' src={captchaImage} alt="验证码" onClick={() => refreshCaptchaID()} />
+                </div>
                   <div className="flex w-full">
-                    <div className="w-full" />
-                    <Button className="w-36" variant="contained" type="submit" disableElevation>
-                      提交订单
-                    </Button>
+                    <div className="flex-grow" />
+                    <button type="submit" className="bg-blue-500 text-white px-4 py-2 cursor-pointer">
+                    提交订单
+                  </button>
                   </div>
                 </Form>
               )}
