@@ -65,12 +65,15 @@ function LoginModal(props) {
   }, [loginModal.isShow])
 
   const handleRegister = (e) => {
+    e.checkKey = captchaId
     user.register(e).then((res) => {
       if (res.success) {
         toast.success('注册成功')
+        refreshCaptchaID()
         setLoginModal({ isShow: true, type: 'login' })
       } else {
         toast.error(res.message)
+        refreshCaptchaID()
       }
     })
   }
@@ -86,9 +89,11 @@ function LoginModal(props) {
         setLoginModal({ isShow: false, type: 'login' })
         setIsLogin(true)
         toast.success('登录成功')
+        refreshCaptchaID()
         onClose()
       } else {
         setCaptchaCorrect(false)
+        refreshCaptchaID()
         toast.error(res.message)
       }
     })

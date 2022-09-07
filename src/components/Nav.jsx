@@ -3,15 +3,9 @@ import toast from 'react-hot-toast'
 import { FaSearch, FaCaretDown } from 'react-icons/fa'
 import { Link, useHistory } from 'react-router-dom'
 import { useRecoilState } from 'recoil'
-import {
-  Menu,
-  MenuItem,
-  IconButton,
-  Divider,
-  Tooltip,
-} from '@material-ui/core'
+import { Menu, MenuItem, IconButton, Divider, Tooltip } from '@mui/material'
 import { usePopupState, bindTrigger, bindMenu } from 'material-ui-popup-state/hooks'
-import { AccountCircle } from '@material-ui/icons'
+import { AccountCircle } from '@mui/icons-material'
 import donationClass from '../services/donationClass'
 import donationItem from '../services/donationItem'
 import { isLoginState, loginModalState } from '../state/state'
@@ -26,7 +20,9 @@ function MyMenuItem({ id, name }) {
   }
 
   return (
-    <div className="w-40 px-3 py-1 pr-8 hover:bg-blue-300" onClick={toDonate}>{name}</div>
+    <div className="w-40 px-3 py-1 pr-8 hover:bg-blue-300" onClick={toDonate}>
+      {name}
+    </div>
   )
 }
 
@@ -42,17 +38,18 @@ function NavItem({ title, menu }) {
   return (
     <div className="menu hidden lg:inline-block relative my-auto px-1">
       <div className="flex">
-        <span className=" px-2 text-gray-500 hover:text-blue-500 cursor-pointer ">{title}
-        </span>
+        <span className=" px-2 text-gray-500 hover:text-blue-500 cursor-pointer ">{title}</span>
         {menu && <FaCaretDown className="my-auto" />}
       </div>
 
-      {menu
-                && (
-                  <div className="menuItem absolute hidden left-1 top-6 bg-white border shadow-md rounded-md min-w-full py-1 cursor-pointer" style={{ zIndex: 10002 }}>
-                    {title === '正在众筹' && allClass.map((item) => <MyMenuItem key={item.id} id={item.id} name={item.name} />)}
-                  </div>
-                )}
+      {menu && (
+        <div
+          className="menuItem absolute hidden left-1 top-6 bg-white border shadow-md rounded-md min-w-full py-1 cursor-pointer"
+          style={{ zIndex: 10002 }}
+        >
+          {title === '正在众筹' && allClass.map((item) => <MyMenuItem key={item.id} id={item.id} name={item.name} />)}
+        </div>
+      )}
     </div>
   )
 }
@@ -85,7 +82,7 @@ function Nav() {
     e.preventDefault()
     setSearchValue(e.target.value)
     if (e.target.value.length > 0) {
-      donationItem.searchItems(e.target.value).then((res) => {
+      donationItem.searchItems({ keyword: e.target.value }).then((res) => {
         if (res.success) {
           setSearchResult(res.result)
         } else {
@@ -140,23 +137,41 @@ function Nav() {
       </Link>
 
       <Link className="my-auto" to="/protocol">
-        {isLogin && JSON.parse(localStorage.getItem('userInfo')).roleId === '1473253380001157121' && <NavItem title="我的协议捐赠" />}
+        {isLogin && JSON.parse(localStorage.getItem('userInfo')).roleId === '1473253380001157121' && (
+          <NavItem title="我的协议捐赠" />
+        )}
       </Link>
 
       <div className="hidden md:inline-block md:flex-grow" />
       <div className="hidden lg:inline-block lg:flex-grow" />
-      <form className="relative flex-grow md:w-40 flex">
-        <span className="absolute text-gray-500 text-xl pl-2 py-2">
+      <form className="relative flex-grow md:w-40 flex items-center">
+        <span className="absolute text-gray-500 text-xl pl-2">
           <FaSearch />
         </span>
-        <input className="w-full border-2 px-3 py-2 pl-7 text-sm bg-gray-100 focus:bg-white focus:outline-none focus:ring-1 focus-blue rounded-xl transition duration-700 ease-in-out" placeholder="请输入关键词" onChange={changeSearch} onBlur={handleBlur} value={searchValue} />
-        { searchResult.length === 0
-          ? <div className={`${searchModalDisplay} absolute w-80 left-8 top-12 px-4 py-2 rounded-md bg-white shadow-md z-50`}>未搜索到内容</div>
-          : (
-            <div className={`${searchModalDisplay} absolute w-80 left-8 top-12 px-4 py-2 rounded-md bg-white shadow-md z-50`}>
-              {searchResult.map((item) => <div className="p-1 hover:bg-blue-200 cursor-pointer" key={item.id} onMouseDown={() => toDetail(item.id)}>{item.name}</div>)}
-            </div>
-          )}
+        <input
+          className="w-full border-2 px-3 py-2 pl-7 text-sm bg-gray-100 focus:bg-white focus:outline-none focus:ring-1 focus-blue rounded-xl transition duration-700 ease-in-out"
+          placeholder="请输入关键词"
+          onChange={changeSearch}
+          onBlur={handleBlur}
+          value={searchValue}
+        />
+        {searchResult.length === 0 ? (
+          <div
+            className={`${searchModalDisplay} absolute w-80 left-8 top-12 px-4 py-2 rounded-md bg-white shadow-md z-50`}
+          >
+            未搜索到内容
+          </div>
+        ) : (
+          <div
+            className={`${searchModalDisplay} absolute w-80 left-8 top-12 px-4 py-2 rounded-md bg-white shadow-md z-50`}
+          >
+            {searchResult.map((item) => (
+              <div className="p-1 hover:bg-blue-200 cursor-pointer" key={item.id} onMouseDown={() => toDetail(item.id)}>
+                {item.name}
+              </div>
+            ))}
+          </div>
+        )}
       </form>
       <div className="flex space-x-2 my-auto px-3 cursor-pointer">
         <IconButton color="inherit" {...bindTrigger(loginPopupState)}>
@@ -174,7 +189,6 @@ function Nav() {
           {isLogin && <MenuItem onClick={logout}>登出</MenuItem>}
         </Menu>
       </div>
-
     </div>
   )
 }

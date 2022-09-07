@@ -1,12 +1,6 @@
-import axios from 'axios'
-import { BASE_URL } from './api'
+import { getAction } from './manage'
 
-const baseUrl = BASE_URL
-
-const getDictItems = async (params) => {
-  const result = await axios.get(`${baseUrl}/UserDict/getItems`, { params })
-  return result.data
-}
+const getDictItems = (params) => getAction('/UserDict/getItems', params)
 
 export default {
   getDictItems,

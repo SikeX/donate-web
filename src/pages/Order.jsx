@@ -85,7 +85,7 @@ function Order() {
 
   // 这个方法是监测浏览器窗口发生变化的时候执行
   window.addEventListener('visibilitychange', () => {
-  // alert(global.username)
+    // alert(global.username)
     if (document.hidden === false) {
       order.getOrder(orderNo).then((res) => {
         if (res.success) {
@@ -95,7 +95,7 @@ function Order() {
         }
       })
     }
-  // 不覆盖的话username永远都是我们设的初始值
+    // 不覆盖的话username永远都是我们设的初始值
   })
 
   const cancelOrder = () => {
@@ -111,9 +111,7 @@ function Order() {
     }
   }
 
-  const renderer = ({
-    hours, minutes, seconds, completed,
-  }) => {
+  const renderer = ({ hours, minutes, seconds, completed }) => {
     if (completed) {
       // Render a complete state
       return <Completionist />
@@ -127,15 +125,13 @@ function Order() {
   }
 
   return (
-    <div className="w-full flex flex-col ">
+    <div className="min-h-screen w-full flex flex-col ">
       <Head />
       <Nav />
-      <div className=" w-full flex flex-col-reverse md:flex md:flex-row py-4 px-8 md:px-16 bg-gray-50 md:space-x-4 space-y-2">
+      <div className="flex-grow w-full flex flex-col-reverse md:flex md:flex-row py-4 px-8 md:px-16 bg-gray-50 md:space-x-4 space-y-2">
         <div className="w-full md:w-2/3 flex flex-col space-y-4">
           <div className="flex flex-col py-2 px-4 shadow-md bg-white">
-            <div className="text-lg py-4">
-              捐赠信息
-            </div>
+            <div className="text-lg py-4">捐赠信息</div>
             <div className="text-gray-500 text-sm space-y-2">
               <div>捐赠项目名:{orderInfo.itemName}</div>
               <div>捐赠人姓名: {orderInfo.name}</div>
@@ -145,31 +141,51 @@ function Order() {
           </div>
           <div className="flex flex-col py-2 px-4 shadow-md bg-white">
             <div className="relative flex justify-between">
-              <div className="text-lg py-4">
-                订单信息
+              <div className="text-lg py-4">订单信息</div>
+              <div
+                className="absolute right-1 bg-red-600 rounded-2xl text-white px-2 py-1 text-sm hover:bg-red-500 shadow-md cursor-pointer"
+                onClick={cancelOrder}
+              >
+                取消订单
               </div>
-              <div className="absolute right-1 bg-red-600 rounded-2xl text-white px-2 py-1 text-sm hover:bg-red-500 shadow-md cursor-pointer" onClick={cancelOrder}>取消订单</div>
             </div>
             <div className="flex flex-col text-gray-500 text-sm space-y-2">
               <div>订单号:{orderInfo.orderNo}</div>
               <div>订单创建时间:{orderInfo.createTime}</div>
               <div className="flex">
                 <div>支付剩余时间:</div>
-                <Countdown className="text-red-500" date={new Date(createTime).getTime() + 1800000} renderer={renderer} />
+                <Countdown
+                  className="text-red-500"
+                  date={new Date(createTime).getTime() + 1800000}
+                  renderer={renderer}
+                />
               </div>
             </div>
-
           </div>
           <div className="flex flex-col py-2 px-4 shadow-md bg-white">
-            <div className="text-xl py-4">
-              支付方式
-            </div>
+            <div className="text-xl py-4">支付方式</div>
             <div className="flex flex-col md:flex-row md:space-x-2 md:space-y-0 space-y-2">
-              <div className="bg-green-400 flex px-4 py-2 rounded-xl shadow-md hover:shadow-xl cursor-pointer" onClick={wxPay}>
-                <svg t="1643531126786" className="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1764" width="72" height="72"><path d="M390.21952 631.09248c-61.26464 34.01984-70.35136-19.09888-70.35136-19.09888l-76.78208-178.46656c-29.54368-84.80512 25.56928-38.23744 25.56928-38.23744s47.2896 35.63392 83.17952 57.34784c35.87072 21.71392 76.75776 6.3744 76.75776 6.3744l501.9648-230.7776C837.94688 113.4528 684.96256 38.4 511.76576 38.4 229.11104 38.4 0 238.13248 0 484.52864c0 141.72544 75.8656 267.8656 194.0352 349.62176l-21.31072 122.01856c0 0-10.38848 35.6224 25.61536 19.10016 24.53376-11.26528 87.0784-51.63392 124.30976-76.20224 58.53056 20.31616 122.2976 31.5968 189.14432 31.5968 282.63168 0 511.79008-199.73248 511.79008-446.13376 0-71.36896-19.31008-138.76864-53.51552-198.59456C810.14144 381.7792 438.15808 604.51712 390.21952 631.09248L390.21952 631.09248 390.21952 631.09248zM390.21952 631.09248" p-id="1765" fill="#ffffff" /></svg>
-                <div className="my-auto px-4 text-xl text-white">
-                  微信支付
-                </div>
+              <div
+                className="bg-green-400 flex px-4 py-2 rounded-xl shadow-md hover:shadow-xl cursor-pointer"
+                onClick={wxPay}
+              >
+                <svg
+                  t="1643531126786"
+                  className="icon"
+                  viewBox="0 0 1024 1024"
+                  version="1.1"
+                  xmlns="http://www.w3.org/2000/svg"
+                  p-id="1764"
+                  width="72"
+                  height="72"
+                >
+                  <path
+                    d="M390.21952 631.09248c-61.26464 34.01984-70.35136-19.09888-70.35136-19.09888l-76.78208-178.46656c-29.54368-84.80512 25.56928-38.23744 25.56928-38.23744s47.2896 35.63392 83.17952 57.34784c35.87072 21.71392 76.75776 6.3744 76.75776 6.3744l501.9648-230.7776C837.94688 113.4528 684.96256 38.4 511.76576 38.4 229.11104 38.4 0 238.13248 0 484.52864c0 141.72544 75.8656 267.8656 194.0352 349.62176l-21.31072 122.01856c0 0-10.38848 35.6224 25.61536 19.10016 24.53376-11.26528 87.0784-51.63392 124.30976-76.20224 58.53056 20.31616 122.2976 31.5968 189.14432 31.5968 282.63168 0 511.79008-199.73248 511.79008-446.13376 0-71.36896-19.31008-138.76864-53.51552-198.59456C810.14144 381.7792 438.15808 604.51712 390.21952 631.09248L390.21952 631.09248 390.21952 631.09248zM390.21952 631.09248"
+                    p-id="1765"
+                    fill="#ffffff"
+                  />
+                </svg>
+                <div className="my-auto px-4 text-xl text-white">微信支付</div>
               </div>
               {/* {!isWeixn() && (
                 <div className="bg-blue-500 flex px-4 py-2 rounded-xl shadow-md hover:bg-blue-600 hover:shadow-xl cursor-pointer" onClick={aliPay}>

@@ -2,9 +2,7 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 
 function TabPanel(props) {
-  const {
-    children, value, index, ...other
-  } = props
+  const { children, value, index, ...other } = props
 
   return (
     <div

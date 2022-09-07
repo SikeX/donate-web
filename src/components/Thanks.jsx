@@ -21,7 +21,11 @@ function Thanks() {
       <div>捐赠寄语</div>
       <div className="w-full bg-blue-700 h-1" />
       <Marquee pauseOnHover>
-        {thanksList.map((item, index) => <div key={item.id} className="px-5 inline-block whitespace-nowrap cursor-pointer">{item.donationMsg} - {item.name}</div>)}
+        {thanksList.map((item) => (
+          <div key={item.id} className="px-5 inline-block whitespace-nowrap cursor-pointer">
+            {item.donationMsg} - {item.name}
+          </div>
+        ))}
       </Marquee>
     </div>
   )

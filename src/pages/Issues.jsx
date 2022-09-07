@@ -28,18 +28,12 @@ function Issues() {
       <Nav />
       <div className="flex-grow flex flex-col bg-gray-200">
         {issuesList.map((item) => (
-          <Accordion key={item.id}>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel1a-content"
-              id="panel1a-header"
-            >
+          <Accordion className="px-10" key={item.id}>
+            <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
               <div className="font-bold text-red-700">{item.title}</div>
             </AccordionSummary>
             <AccordionDetails>
-              <div>
-                {item.content}
-              </div>
+              <div>{item.content}</div>
             </AccordionDetails>
           </Accordion>
         ))}

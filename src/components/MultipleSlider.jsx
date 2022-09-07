@@ -14,15 +14,13 @@ function MultipleSlider() {
       cols={4}
       rows={1}
       gap={10}
-      responsiveLayout={
-        [
-          {
-            breakpoint: 768,
-            cols: 1,
-            rows: 4,
-          }
-        ]
-      }
+      responsiveLayout={[
+        {
+          breakpoint: 768,
+          cols: 1,
+          rows: 4,
+        },
+      ]}
       mobileBreakpoint={300}
       loop
     >

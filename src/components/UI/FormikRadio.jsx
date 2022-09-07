@@ -1,12 +1,10 @@
 import React from 'react'
-import { RadioGroup } from 'formik-material-ui'
+import { RadioGroup } from 'formik-mui'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import { Field } from 'formik'
 import Radio from '@mui/material/Radio'
 
-function FormikRadio({
-  className, name, options,
-}) {
+function FormikRadio({ className, name, options }) {
   return (
     <Field row component={RadioGroup} name={name} className={className}>
       {options.map((option) => (

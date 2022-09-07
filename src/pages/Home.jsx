@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import Head from '../components/Head'
 import Nav from '../components/Nav'
 import MySlider from '../components/MySlider'
@@ -30,7 +30,9 @@ function Home() {
         <Thanks />
       </div>
       <div className="w-full flex flex-col px-1 md:px-12 lg:px-16 space-y-3 py-1">
-        {donationClassList.map((item) => <DonateClass key={item.id} id={item.id} name={item.name} />)}
+        {donationClassList.map((item) => (
+          <DonateClass key={item.id} id={item.id} name={item.name} />
+        ))}
       </div>
       <div>
         <Footer />

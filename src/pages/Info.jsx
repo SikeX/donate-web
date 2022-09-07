@@ -1,8 +1,6 @@
 import Button from '@mui/material/Button'
 import FormLabel from '@mui/material/FormLabel'
-import {
-  React, useEffect, useState,
-} from 'react'
+import { useEffect, useState } from 'react'
 import { Formik, Form } from 'formik'
 import * as yup from 'yup'
 import { TextField, Autocomplete } from '@mui/material'
@@ -19,7 +17,7 @@ import order from '../services/order'
 import user from '../services/user'
 
 function Info() {
-  console.log(useParams())
+  // console.log(useParams())
   const { itemId, optionId, number } = useParams()
 
   const [item, setItem] = useState({})
@@ -36,17 +34,9 @@ function Info() {
   const phoneRegExp = /^1(3\d|4[5-9]|5[0-35-9]|6[2567]|7[0-8]|8\d|9[0-35-9])\d{8}$/
 
   const validationSchema = yup.object({
-    name: yup
-      .string('请输入您的姓名')
-      .required('请输入您的姓名'),
-    phone: yup
-      .string()
-      .matches(phoneRegExp, '手机号不可用')
-      .required('请输入您的手机号'),
-    email: yup
-      .string('请输入您的邮箱')
-      .email('请输入有效的邮箱')
-      .required('请输入您的邮箱'),
+    name: yup.string('请输入您的姓名').required('请输入您的姓名'),
+    phone: yup.string().matches(phoneRegExp, '手机号不可用').required('请输入您的手机号'),
+    email: yup.string('请输入您的邮箱').email('请输入有效的邮箱').required('请输入您的邮箱'),
     // department: yup
     //   .string('请选择您的院系/部门'),
   })
@@ -63,7 +53,7 @@ function Info() {
 
   const isSchoolMateOptions = [
     { label: '是', value: 'yes' },
-    { label: '否', value: 'no' }
+    { label: '否', value: 'no' },
   ]
 
   const refreshCaptchaID = () => {
@@ -120,7 +110,7 @@ function Info() {
   }, [])
 
   const handleSubmit = (e) => {
-    console.log(e.capture)
+    console.log(e.captcha)
     const orderInfo = {}
     orderInfo.name = e.name
     orderInfo.email = e.email
@@ -132,48 +122,50 @@ function Info() {
     orderInfo.optionId = number ? optionId : '1'
     orderInfo.money = number ? number * optionMoney : optionId * 100
     orderInfo.piece = number || 1
+    orderInfo.captcha = e.captcha
+    orderInfo.checkKey = captchaId
     order.postOrder(orderInfo).then((res) => {
       console.log(res)
       if (res.success) {
         toast.success('订单提交成功')
         history.push(`/order/${res.result.orderNo}`)
+      } else {
+        toast.error(res.message)
+        refreshCaptchaID()
       }
     })
     // alert(JSON.stringify(e, null, 2))
   }
 
   return (
-    <div className="w-full h-screen flex flex-col">
+    <div className="w-full min-h-screen flex flex-col">
       <Head />
       <Nav />
       <div className="w-full flex lg:flex-row flex-col flex-grow bg-gray-100 lg:px-16 lg:py-8 space-y-2 md:space-x-2">
         <div className="w-full lg:w-1/3 flex flex-col bg-white shadow-lg rounded-lg">
-          <div style={{ backgroundImage: `url(${FILE_BASE_URL}${item.picture})` }} className="w-full h-0 pb-3/4 bg-red-400 rounded-t-lg bg-cover " />
+          <div
+            style={{ backgroundImage: `url(${FILE_BASE_URL}${item.picture})` }}
+            className="w-full h-0 pb-3/4 bg-red-400 rounded-t-lg bg-cover "
+          />
           <div className="flex flex-col flex-grow p-4 ">
             <h1 className="px-2 py-1 text-xl ">哈尔滨工程大学校友基金会</h1>
             <div className="px-2 py-1">{item.name}</div>
             <div className="w-full h-px mx-2 my-2 bg-blue-800" />
             <div className="px-2 py-1 text-gray-500">总金额</div>
-            <div className="px-1 py-1 text-3xl font-bold ">￥{number ? parseFloat((number * optionMoney) / 100) : optionId} CNY</div>
+            <div className="px-1 py-1 text-3xl font-bold ">
+              ￥{number ? parseFloat((number * optionMoney) / 100) : optionId} CNY
+            </div>
           </div>
         </div>
         <div className="w-full lg:w-2/3">
           <div className="bg-white w-full flex flex-col space-y-8 py-4 px-4 md:px-16">
             <div className="py-3 flex flex-col space-y-2">
               <div className="text-xl font-bold">捐赠信息填写</div>
-              <div className="text-sm text-gray-400 border-b-2">
-                请填写捐赠详细信息, *为必填项
-              </div>
+              <div className="text-sm text-gray-400 border-b-2">请填写捐赠详细信息, *为必填项</div>
             </div>
             {/* form */}
-            <Formik
-              initialValues={initialValues}
-              validationSchema={validationSchema}
-              onSubmit={handleSubmit}
-            >
-              {({
-                errors, touched, handleChange, values, setFieldValue,
-              }) => (
+            <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
+              {({ errors, touched, handleChange, values, setFieldValue }) => (
                 <Form className="flex flex-col space-y-3">
                   <div className="w-full flex space-x-2">
                     <TextField
@@ -230,10 +222,7 @@ function Info() {
                     style={{ width: 300 }}
                     value={values.department}
                     onChange={(e, value) => {
-                      setFieldValue(
-                        'department',
-                        value !== null ? value : initialValues.department
-                      )
+                      setFieldValue('department', value !== null ? value : initialValues.department)
                     }}
                     // error={touched.department && Boolean(errors.department)}
                     // helperText={touched.department && errors.department}
@@ -284,13 +273,13 @@ function Info() {
                       isInvalid={!!errors.captcha}
                     />
                     {/* eslint-disable */}
-                <img className='h-10' src={captchaImage} alt="验证码" onClick={() => refreshCaptchaID()} />
-                </div>
+                    <img className="h-10" src={captchaImage} alt="验证码" onClick={() => refreshCaptchaID()} />
+                  </div>
                   <div className="flex w-full">
                     <div className="flex-grow" />
                     <button type="submit" className="bg-blue-500 text-white px-4 py-2 cursor-pointer">
-                    提交订单
-                  </button>
+                      提交订单
+                    </button>
                   </div>
                 </Form>
               )}

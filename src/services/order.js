@@ -24,8 +24,8 @@ const getOrdersByItemId = async (itemId) => {
   return result.data
 }
 
-const getOrdersByPhone = async (phone) => {
-  const result = await axios.get(`${baseUrl}/user/donationOrder/queryByPhone`, { params: { phone } })
+const getOrdersByPhone = async (orderQueryModel) => {
+  const result = await axios.post(`${baseUrl}/user/donationOrder/queryByPhone`, orderQueryModel)
   return result.data
 }
 
